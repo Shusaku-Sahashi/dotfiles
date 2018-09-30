@@ -1,0 +1,19 @@
+# vim-airline                                                                                                                                                                                       
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+# NERDtree
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+# Dracula(Collor)
+[[plugins]]
+repo = 'dracula/vim'
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'w0rp/ale'
