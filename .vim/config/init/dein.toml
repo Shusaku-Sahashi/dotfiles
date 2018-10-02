@@ -12,8 +12,21 @@ repo = 'scrooloose/nerdtree'
 # Dracula(Collor)
 [[plugins]]
 repo = 'dracula/vim'
+
+# unite
 [[plugins]]
 repo = 'Shougo/unite.vim'
 
+# ale
 [[plugins]]
 repo = 'w0rp/ale'
+
+# インデントの可視化
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'

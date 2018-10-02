@@ -20,7 +20,7 @@ endif
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  " dein.toml, dein_layz.tomlファイルのディレクトリをセット
+ " dein.toml, dein_layz.tomlファイルのディレクトリをセット
   let s:toml_dir = expand('~/.vim/config/init')
 
   " 起動時に読み込むプラグイン群
