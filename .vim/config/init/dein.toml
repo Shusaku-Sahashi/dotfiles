@@ -2,12 +2,46 @@
 [[plugins]]
 repo = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes']
+hook_add = '''
+  " setting for vim-airline
+  " activate tab
+  let g:airline#extensions#tabline#enabled = 1
+
+  nmap <C-p> <Plug>AirlineSelectPrevTab
+  nmap <C-n> <Plug>AirlineSelectNextTab
+
+  " powerline font入れないと若干ダサい
+  let g:airline_powerline_fonts = 1
+
+  " vim-airline-themesが必要
+  let g:airline_theme='behelit'
+  
+  " タブにバッファーの数字を表示する。
+  let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+  " タブの数字のフォーマットを変更。
+  let g:airline#extensions#tabline#buffer_idx_format = {
+    \ '0': '0 ',
+    \ '1': '1 ',
+    \ '2': '2 ',
+    \ '3': '3 ',
+    \ '4': '4 ',
+    \ '5': '5 ',
+    \ '6': '6 ',
+    \ '7': '7 ',
+    \ '8': '8 ',
+    \ '9': '9 '
+    \}
+  " branchとreadenableを表示する。
+  let g:airline#extensions#branch#enabled = 1
+  let g:airline#extensions#readonly#enabled = 1
+  " TODO:フォントが崩れるので下記を参考にRictyをいれること。
+  " https://dev.classmethod.jp/devenv/vim-ricty-for-powerline/
+  
+'''
+
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
-
-# NERDtree
-[[plugins]]
-repo = 'scrooloose/nerdtree'
 
 # Dracula(Collor)
 [[plugins]]
@@ -30,3 +64,34 @@ repo = 'roxma/vim-hug-neovim-rpc'
 
 [[plugins]]
 repo = 'roxma/nvim-yarp'
+
+# NERDtree
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+  let NERDTreeShowBookmarks=1
+  autocmd vimenter * NERDTree
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+  function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+    exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+    exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+  endfunction
+  call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+  call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+  call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+  call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+  call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+  call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+  call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+  call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+  " 隠しファイルを表示する。
+  let NERDTreeShowHidden = 1
+'''
+
+

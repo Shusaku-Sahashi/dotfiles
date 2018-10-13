@@ -48,3 +48,6 @@ on_i = 1
 [[plugins]]
 repo = 'fishbullet/deoplete-ruby'
 on_ft = ['ruby']
+
+################### plugins for generel #######################
+
