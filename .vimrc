@@ -109,7 +109,7 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 "バックスペースで改行を削除可能にする。
 " set backspace=2
 " 相対文字表示にする。
-set relativenumber
+" set relativenumber
 " クリップボードに連携する。
 set clipboard+=unnamed
 
@@ -146,5 +146,5 @@ if has("autocmd")
   autocmd FileType scss        setlocal sw=4 sts=4 ts=4 et
   autocmd FileType sass        setlocal sw=4 sts=4 ts=4 et
   autocmd FileType javascript  setlocal sw=4 sts=4 ts=4 et
-  autocmd FileType scheme      setlocal sw=4 sts=4 ts=4 et
+  autocmd FileType racket      setlocal sw=4 sts=4 ts=4 et
 endif

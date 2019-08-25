@@ -1,0 +1,2 @@
+# サーバーへ定期的にAlive情報を送る。
+ServerAliveInterval 60
