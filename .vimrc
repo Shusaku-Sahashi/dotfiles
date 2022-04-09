@@ -1,54 +1,6 @@
-"""""""" settig for dein setting"""""""
-if &compatible
-  set nocompatible
-endif
-
-" dein.vimインストール時に指定したディレクトリをセット
-let s:dein_dir = expand('~/.vim/dunbles')
-
-" dein.vimの実体があるディレクトリをセット
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-" dein.vimが存在していない場合はgithubからclone
-if &runtimepath !~# '/dein.vim'
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-  endif
-  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-endif
-
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-
- " dein.toml, dein_layz.tomlファイルのディレクトリをセット
-  let s:toml_dir = expand('~/.vim/config/init')
-
-  " 起動時に読み込むプラグイン群
-  call dein#load_toml(s:toml_dir . '/dein.toml', {'lazy': 0})
-
-  " 遅延読み込みしたいプラグイン群
-  call dein#load_toml(s:toml_dir . '/dein_lazy.toml', {'lazy': 1})
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-"""""""""" setting for dein End """""""
-color dracula
-syntax on
-
-set runtimepath+=~/.vim/config/
-runtime! plugins-config/*.vim
-
 """""""""  General Setting """"""""""""""
+" syntax on
+syntax on
 " setting
 "文字コードをUFT-8に設定
 set fenc=utf-8
@@ -85,7 +37,6 @@ set wildmode=list:longest
 nnoremap j gj
 nnoremap k gk
 
-
 " Tab系
 " 不可視文字を可視化(タブが「▸-」と表示される)
 set list listchars=tab:\▸\-
@@ -107,9 +58,9 @@ set hlsearch
 " ESC連打でハイライト解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 "バックスペースで改行を削除可能にする。
-" set backspace=2
+set backspace=2
 " 相対文字表示にする。
-" set relativenumber
+set relativenumber
 " クリップボードに連携する。
 set clipboard+=unnamed
 
@@ -148,3 +99,32 @@ if has("autocmd")
   autocmd FileType javascript  setlocal sw=4 sts=4 ts=4 et
   autocmd FileType racket      setlocal sw=4 sts=4 ts=4 et
 endif
+
+" By default vim will indent arguments after the function name
+" but sometimes you want to only indent by 2 spaces similar to
+" how DrRacket indents define. Set the `lispwords' variable to
+" add function names that should have this type of indenting.
+set lispwords+=public-method,override-method,private-method,syntax-case,syntax-rules
+set lispwords-=if
+ 
+
+" terminal関連
+" https://qiita.com/Sylba2050/items/d215abc626d811f49775
+set splitbelow
+set termwinsize=7x0
+
+function! TermOpen()
+    if empty(term_list())
+        execute "terminal"
+    else
+        call win_gotoid(win_findbuf(term_list()[0])[0])
+    endif
+endfunction
+
+" terminal起動時にInsert Modeから抜ける。
+" http://secret-garden.hatenablog.com/entry/2017/11/14/113127
+" 先ほど作った関数に追記する
+function! s:filetype()
+   " これも <A-w> の部分は自分の環境に合わせて直してね
+    call timer_start(0, { -> feedkeys("\<C-w>\<S-n>") })
+endfunction
