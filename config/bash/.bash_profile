@@ -1,8 +1,3 @@
-# .bashrc
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
-fi
-
 ################################################################
 ###共通設定
 ##################################################################
@@ -34,19 +29,31 @@ if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
 
-################################################################
-### pathの設定
-##################################################################
+alias ls='ls -FG'
 
-# nodebrewのPATH
-export PATH=$HOME/.nodebrew/current/bin:$PATH
+alias start-psql='pg_ctl -l /usr/local/var/postgres11/server.log start'
+alias stop-psql='pg_ctl -m smart stop'
+export HOMEBREW_GITHUB_API_TOKEN=74ff0baf985f6d47622e0108ed2653ed689046b4
 
-# FOR ruby
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
+######
+# AWS CIL
+######
+export PATH=~/.local/bin:$PATH
 
-# OPAM configuration
-# OderQRのmake startコマンドが通らないため、コメントアウト
-# . /Users/shusaku/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+# https://blog.y-ohgi.com/entry/2018/06/26/013128
+# 現在開いているFinderのパスへ移動する。
+cdf() {
+  target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
+  if [ "$target" != "" ]; then
+    builtin cd "$target"; pwd
+  else
+    echo 'No Finder window found' >&2
+  fi
+}
+alias cdf='cdf'
 
+## csharp-scriptのsandbox用のショートカット
+alias open-cs-sbox='code ~/Programing/Tutorials/015_C\#/csharp-script-sandbox'
 
+## pbcopyのalias
+alias C="pbcopy "
