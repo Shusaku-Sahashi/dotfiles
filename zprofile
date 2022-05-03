@@ -69,3 +69,29 @@ fi
 if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+#############################################
+# WSLgの設置
+#############################################
+if ! type "setxkbmap" &> /dev/null ; then
+  sudo apt install x11-xkb-utils
+fi
+setxkbmap -layout us
+
+#############################################
+# Flutter
+# ###########################################
+export PATH=$PATH:$HOME/fvm/default/bin
+
+########################################
+# 後からここのパス関係はきれいにする。
+# Android SDKの設定
+export ANDROID_HOME=/usr/local/src/Android/SDK
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+alias adb=$ANDROID_HOME/platform-tools/adb
+alias emulator=$ANDROID_HOME/emulator/emulator
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+########################################
