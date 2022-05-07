@@ -71,6 +71,16 @@ if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
 fi
 
 #############################################
+# Homebrew
+#############################################
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+if ! type "brew" &> /dev/null ; then 
+    sudo apt-get install build-essential curl file git
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
+#############################################
 # WSLgの設置
 #############################################
 if ! type "setxkbmap" &> /dev/null ; then
