@@ -33,7 +33,10 @@
   pull-mybranch = !git symbolic-ref --short HEAD | xargs git pull origin
   clean-branch = !git checkout master | git branch --merged | grep -vE 'develop|master' | xargs git branch -d | git checkout -
   choo = "!f() { git checkout origin/$1; }; f"
-
+  get = !ghq get -p                 # クローン
+  list = !ghq list                  # リポジトリ一覧
+  root = "!exc $SHELL ; :"          # 作業リポジトリのトップに移動
+  cd = "!ghq-cd ; :"
 [hub]
   protocol = ssh
 
