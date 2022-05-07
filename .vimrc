@@ -107,7 +107,6 @@ endif
 set lispwords+=public-method,override-method,private-method,syntax-case,syntax-rules
 set lispwords-=if
  
-
 " terminal関連
 " https://qiita.com/Sylba2050/items/d215abc626d811f49775
 set splitbelow

@@ -91,7 +91,8 @@ setxkbmap -layout us
 #############################################
 # Flutter
 # ###########################################
-export PATH=$PATH:$HOME/fvm/default/bin
+# WindowsのFlutterがある場合でも、WSL上のものが採用されるように先頭に定義。
+export PATH=$HOME/fvm/default/bin:$PATH
 
 ########################################
 # 後からここのパス関係はきれいにする。
