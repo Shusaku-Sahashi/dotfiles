@@ -3,7 +3,6 @@
 #
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -127,6 +126,10 @@ if [[ $(command -v exa) ]]; then
   alias lta=eta
 fi
 
+if [[ $(command -v bat) ]]; then
+    alias cat=bat
+fi
+
 ######################################
 # Setting for ghq
 # brew install ghq
@@ -134,3 +137,23 @@ fi
 if [[ $(command -v ghq) ]]; then
     alias ghq-cd='cd $(ghq list --full-path | fzf)'
 fi
+
+if [[ "$(uname -r)" == *microsoft* ]]; then
+    ## windows への接続IPを設定 
+    export WIN_IP=$(cat /etc/resolv.conf | grep nameserver | cut -d' ' -f2)
+    export ADB_SERVER_SOCKET=tcp:$WIN_IP:5037
+fi
+
+#####################################
+# go
+####################################
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+
+####################################
+# aws-vault Linux用の設定
+####################################
+export AWS_VAULT_BACKEND=pass
+export AWS_VAULT_PASS_PREFIX=aws-vault
+export AWS_SESSION_TOKEN_TTL=3h

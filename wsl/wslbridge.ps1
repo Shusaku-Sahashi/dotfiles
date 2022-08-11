@@ -1,7 +1,6 @@
 ##########################################################################################
-### WSL‚Å‹N“®‚µ‚½ƒvƒƒZƒX‚ğEmulator‚âLan‚©‚çQÆ‚·‚éÛ‚ÉAƒ|[ƒgƒtƒHƒ[ƒh‚·‚é•K—v‚ª‚ ‚éB
-### ‚»‚ê‚ğÀŒ»‚·‚éƒXƒNƒŠƒvƒgB
-### Windows‘¤‚Ì‚Ç‚±‚©‚É”z’u‚µ‚ÄAƒpƒX‚ğ’Ê‚µ‚Äg—p‚·‚éB
+### WSLï¿½Å‹Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Zï¿½Xï¿½ï¿½Emulatorï¿½ï¿½Lanï¿½ï¿½ï¿½ï¿½Qï¿½Æ‚ï¿½ï¿½ï¿½Û‚ÉAï¿½|ï¿½[ï¿½gï¿½tï¿½Hï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
+### ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½vï¿½gï¿½B
 ##########################################################################################
 
 
@@ -38,9 +37,11 @@ Function AddPortProxyConf(){
     }
 
     foreach($port in $ports){
-        iex "netsh interface portproxy delete v4tov4 listenport=$port listenaddress=$listenaddress";
-        iex "netsh interface portproxy add v4tov4 listenport=$port listenaddress=$listenaddress connectport=$port connectaddress=$remoteport";
-        write-host "[wslbridge] Port $port configured: `nListen address: $listenaddress`nConnect address: $remoteport"
+        $comm = "netsh interface portproxy delete v4tov4 listenport=$port listenaddress=$listenaddress;"
+        $comm += "netsh interface portproxy add v4tov4 listenport=$port listenaddress=$listenaddress connectport=$port connectaddress=$remoteport;";
+        ExecuteAsAdmin $comm
+
+        write-host "[wslbridge] Port $port configured: (Listen address: $listenaddress, Connect address: $remoteport)"
     }
 
     netsh interface portproxy show all
@@ -54,11 +55,11 @@ Function ShowHelp() {
     Write-Host "connectaddress (-connectaddress 127.0.0.1)"  -ForegroundColor Yellow
 }
 
-Function ChangeToAdmin() {
+Function ExecuteAsAdmin([string] $command) {
     ## Escalate administrator.
     if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole("Administrators"))
     {
-       Start-Process powershell.exe AddPortProxyConf -Verb RunAs; exit
+       Start-Process powershell -Verb RunAs -ArgumentList $command
     }
 }
 
@@ -70,10 +71,10 @@ if ($help) {
     netsh interface portproxy show all
     exit;
 } elseif ($reset) {
-    netsh interface portproxy reset
+    ExecuteAsAdmin "netsh interface portproxy reset"
     exit;
 } elseif ($ports.Length -ge 1) {
-    ChangeToAdmin
+    AddPortProxyConf
     exit;
 }
 

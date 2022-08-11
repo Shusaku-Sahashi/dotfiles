@@ -18,6 +18,8 @@
 
 [core]
   editor = vim
+  excludesfile = ~/.gitignore_global
+  autocrlf = false
 #  autocrlf = true
 #  safecrlf = true
 
