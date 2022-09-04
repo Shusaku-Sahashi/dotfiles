@@ -61,8 +61,16 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set backspace=2
 " 相対文字表示にする。
 set relativenumber
+
 " クリップボードに連携する。
-set clipboard+=unnamed
+if has("unix") 
+  set clipboard&
+  set clipboard^=unnamedplus
+endif
+if has("mac")
+  set clipboard+=unnamed
+endif
+
 
 """""""""""""""""""""""""
 "      インデント
