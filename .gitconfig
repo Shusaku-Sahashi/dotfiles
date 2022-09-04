@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 # Please adapt and uncomment the following lines:
 [user]
-    email = 13200387+Shusaku-Sahashi@users.noreply.github.com
+    email = sahashi@sansan.com
     name = Shusaku-Sahashi
     username = Shusaku-Sahashi
 
@@ -18,10 +18,8 @@
 
 [core]
   editor = vim
-  excludesfile = ~/.gitignore_global
+  excludesfile = ~/.global_gitignore
   autocrlf = false
-#  autocrlf = true
-#  safecrlf = true
 
 [alias]
   aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/'

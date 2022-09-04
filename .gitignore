@@ -1,1 +1,15 @@
-.vim/dunbles/*
+/*
+/.**
+
+## white list
+!/config
+!/macOS
+!/wsl
+/.bin.local/** # ディレクトリは管理したいけど中身はいらない場合
+
+!setup.ps1
+!setup.sh
+!.vimrc
+!.global_gitignore
+!.gitignore
+!.gitconfig
