@@ -13,3 +13,4 @@
 !.global_gitignore
 !.gitignore
 !.gitconfig
+!.tmux.conf
