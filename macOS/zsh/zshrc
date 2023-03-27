@@ -29,6 +29,9 @@ case ${OSTYPE} in
         ;;
 esac
 
+#### TODO: 後からいい感じにする。
+source ~/dotfiles/.zsh/rc/git.zsh
+
 # #################################
 # zsh setting
 # #################################

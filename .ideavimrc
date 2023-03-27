@@ -1,4 +1,4 @@
-# MEMj ###########
+# MEMO ###########
 # `:actionlist [フィルタ]` でIdeaVimから呼び出せる機能を参照できる。 ref: https://ikenox.info/blog/ideavim-search-actionlist/
 # `:action [アクション名]` でアクションの呼び出しができる。これで試してバインドを考える。
 
@@ -11,14 +11,15 @@ nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
 
 " 画面をシンプルにする。
-nnoremap <M-w>z :action ToggleDistractionFreeMode<CR>
+nnoremap <D-w>z :action ToggleDistractionFreeMode<CR>
 
 " Kinesis用の設定。CmdをCtrlにリダイレクト
-nnoremap <M-r> <C-r>
-nnoremap <M-v> <C-v>
-nnoremap <M-u> <C-u>
-nnoremap <M-d> <C-d>
-nnoremap <M-r> <C-r>
+nnoremap <D-r> <C-r>
+nnoremap <D-v> <C-v>
+nnoremap <D-u> <C-u>
+nnoremap <D-d> <C-d>
+nnoremap <D-r> <C-r>
+nnoremap <D-Enter> :<C-u>action CodeCompletion<CR>
 
 nnoremap [f :<C-u>action MethodUp<CR>
 nnoremap ]f :<C-u>action MethodDown<CR>
@@ -43,10 +44,10 @@ nnoremap g, :<C-u>action JumpToNextChange<CR>
 
 ## 便利な操作関連
 " C-w は死守
-nnoremap <M-w> <Nop>
+nnoremap <D-w> <Nop>
 
 " 現在のタブ以外を閉じる
-nnoremap <M-w>o :<C-u>action CloseAllEditorsButActive<CR>
+nnoremap <D-w>o :<C-u>action CloseAllEditorsButActive<CR>
 
 " IDEアクションを検索
 nnoremap <Space>a :<C-u>action GotoAction<CR>
@@ -106,7 +107,7 @@ nnoremap <Space>P :<C-u>action ManageRecentProjects<CR>
 nnoremap <Space>b :<C-u>action ToggleLineBreakpoint<CR>
 
 " 実行
-nnoremap <Space>rr :<C-u>action Run<CR>
+nnoremap <Space>rn :<C-u>action Run<CR>
 
 " クラスを実行
 nnoremap <Space>rm :<C-u>action RunClass<CR>
@@ -117,27 +118,30 @@ nnoremap <Space>d :<C-u>action Debug<CR>
 " 実行を停止
 nnoremap <Space>T :<C-u>action Stop<CR>
 
+" リラン
+nnoremap <Space>rr :<C-u>action Rerun<CR>
+
 " なぜか動かないのでコメントアウト
 " Back
-" nnoremap <M--> :<C-u>action Back<CR>
+" nnoremap <D--> :<C-u>action Back<CR>
 " Forward
-" nnoremap <M-s--> :<C-u>action Forward<CR>
+" nnoremap <D-s--> :<C-u>action Forward<CR>
 
 ## ウィンドウ操作関連
 " 現在のバッファを閉じる
 nnoremap <Space>q :<C-u>action CloseContent<CR>
 " 最後の閉じたバッファを開く
 nnoremap <Space>Q :<C-u>action ReopenClosedTab<CR>
-nnoremap <M-w>\ :action SplitVertically<CR>
-nnoremap <M-w>- :action SplitHorizontally<CR>
-nnoremap <M-w>' :action Unsplit<CR>
-nnoremap <M-w>m :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <D-w>\ :action SplitVertically<CR>
+nnoremap <D-w>- :action SplitHorizontally<CR>
+nnoremap <D-w>' :action Unsplit<CR>
+nnoremap <D-w>m :action MoveEditorToOppositeTabGroup<CR>
 sethandler <c-j> a:vim
 sethandler <c-k> a:vim
-nnoremap <M-w>h <c-w>h
-nnoremap <M-w>l <c-w>l
-nnoremap <M-w>j <c-w>j
-nnoremap <M-w>k <c-w>k
+nnoremap <D-w>h <c-w>h
+nnoremap <D-w>l <c-w>l
+nnoremap <D-w>j <c-w>j
+nnoremap <D-w>k <c-w>k
 nnoremap <TAB> :action NextTab<CR>
 nnoremap <s-TAB> :action PreviousTab<CR>
 nnoremap <Space>en :action EditSourceInNewWindow<CR>
@@ -159,7 +163,7 @@ nnoremap <C-S-\> :action EditorResetFontSize<CR>
 # go ... Open file but fucus on the project pane
 # s ... Open file but in a new vertical split.
 set NERDTree
-nnoremap <M-t> :NERDTree<CR>
+nnoremap <D-t> :NERDTree<CR>
 
 ### Plug: Surround
 ## Usage
