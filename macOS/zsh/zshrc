@@ -6,16 +6,20 @@
 #
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+if [[ ! -s"${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+else 
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
+
 
 # Customize to your needs...##################################################
 # #################################
 # local fileがあれば読み込む
-# TODO: あれば読み込む感じに書き直す
 # #################################
-source ~/dotfiles/.bin.local/.zshrc.local
+if [[ -d "~/dotfiles/.bin.local/.zshrc.local" ]]; then
+  source ~/dotfiles/.bin.local/.zshrc.local
+fi
 
 ## OS毎の設定を読み込む。
 case ${OSTYPE} in
@@ -132,6 +136,14 @@ function peco-cdr () {
 zle -N peco-cdr
 bindkey '^E' peco-cdr
 # ####################################
+
+
+############################
+# install brew
+# #########################
+if [[ ! $(command -v brew) ]]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 #######################################
 # Setting for exa
