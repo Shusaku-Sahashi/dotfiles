@@ -1,7 +1,6 @@
 # This is Git's per-user configuration file.
 # Please adapt and uncomment the following lines:
 [user]
-    email = sahashi@sansan.com
     name = Shusaku-Sahashi
     username = Shusaku-Sahashi
 

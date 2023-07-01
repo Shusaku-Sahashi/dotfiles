@@ -34,7 +34,9 @@ case ${OSTYPE} in
 esac
 
 #### TODO: 後からいい感じにする。
-source ~/dotfiles/.zsh/rc/git.zsh
+if [[ -s "~/dotfiles/.zsh/rc/git.zsh" ]] then; 
+    source ~/dotfiles/.zsh/rc/git.zsh
+fi 
 
 # #################################
 # zsh setting

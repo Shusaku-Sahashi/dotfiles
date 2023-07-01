@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # create symbolic link
-DOT_FILES=( .gitconfig .vimrc )
+DOT_FILES=( .gitconfig .vimrc .tmux.config)
 
 for file in ${DOT_FILES[@]}
 do
@@ -19,3 +19,6 @@ for file in ${DOT_FILES[@]}
 do
     ln -s $HOME/dotfiles/macOS/zsh/$file $HOME/.$file
 done 
+
+## install tools
+./install_tools.sh
