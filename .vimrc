@@ -141,3 +141,5 @@ function! s:filetype()
     call timer_start(0, { -> feedkeys("\<C-w>\<S-n>") })
 endfunction
 
+" json format
+command! Jqf %!jq '.'

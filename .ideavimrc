@@ -59,22 +59,22 @@ nnoremap <Space>G :<C-u>action Generate<CR>
 nnoremap <Space>gn :<C-u>action NewClass<CR>
 
 " メソッドをオーバーライド
-nnoremap <Space>go :<C-u>action OverrideMethods<CR>
-
-" コンストラクタを生成
-nnoremap <Space>gc :<C-u>action GenerateConstructor<CR>
-
-" Getter を生成
-nnoremap <Space>gg :<C-u>action GenerateGetter<CR>
-
-" Setter を生成
-nnoremap <Space>gs :<C-u>action GenerateSetter<CR>
-
-" Getter/Setter を生成
-nnoremap <Space>ga :<C-u>action GenerateGetterAndSetter<CR>
+"nnoremap <Space>go :<C-u>action OverrideMethods<CR>
+"
+"" コンストラクタを生成
+"nnoremap <Space>gc :<C-u>action GenerateConstructor<CR>
+"
+"" Getter を生成
+"nnoremap <Space>gg :<C-u>action GenerateGetter<CR>
+"
+"" Setter を生成
+"nnoremap <Space>gs :<C-u>action GenerateSetter<CR>
+"
+"" Getter/Setter を生成
+"nnoremap <Space>ga :<C-u>action GenerateGetterAndSetter<CR>
 
 " equals を生成
-nnoremap <Space>ge :<C-u>action GenerateEquals<CR>
+"nnoremap <Space>ge :<C-u>action GenerateEquals<CR>
 
 " テストメソッドを生成
 nnoremap <Space>gt :<C-u>action GenerateTestMethod<CR>

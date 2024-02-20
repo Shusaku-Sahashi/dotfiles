@@ -10,4 +10,3 @@ cdf() {
     echo 'No Finder window found' >&2
   fi
 }
-alias cdf='cdf'
