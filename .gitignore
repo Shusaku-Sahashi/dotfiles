@@ -8,8 +8,8 @@
 !/wsl
 /.bin.local/** # ディレクトリは管理したいけど中身はいらない場合
 
-!setup.ps1
-!setup.sh
+!.bin/setup.ps1
+!.bin/setup.sh
 !.vimrc
 !.global_gitignore
 !.gitignore
