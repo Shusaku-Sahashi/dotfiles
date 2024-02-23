@@ -6,5 +6,6 @@ jobs:
   mac:
     runs-on: macos-latest
     steps:
+      - uses: actions/checkout@v1
       - name: Install dotfiles
-        run: ./.bin/setup.sh
+        run: .bin/setup.sh
