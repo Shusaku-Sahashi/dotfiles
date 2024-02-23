@@ -1,0 +1,12 @@
+name: CI
+on:
+  push
+
+jobs:
+  mac:
+    runs-on: macos-latest
+    steps:
+      - name: Install required packages
+        run: apt-get update && apt-get install -y git sudo
+      - name: Install dotfiles
+        run: .bin/install.sh install
