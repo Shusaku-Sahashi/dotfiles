@@ -34,6 +34,7 @@
   clean-branch = !git checkout main | git branch --merged | grep -E 'develop|feature' | xargs git branch -d | git checkout -
   choo = "!f() { git checkout origin/$1; }; f"
   stash = stash -u
+  init-commit = commit --allow-empty -m "init commit"
 
   # https://qiita.com/yukiarrr/items/9c21d97f6c8ac31de157#4-stash%E4%B8%80%E8%A6%A7%E3%82%92%E3%82%82%E3%81%A3%E3%81%A8%E8%A6%8B%E3%82%84%E3%81%99%E3%81%8F%E3%81%97%E3%81%9F%E3%81%84
   co = "!f() { args=$@; if [ -z \"$args\" ]; then branch=$(git branch --all | grep -v HEAD | fzf --preview 'echo {} | cut -c 3- | xargs git log --color=always' | cut -c 3-); git checkout $(echo $branch | sed 's#remotes/[^/]*/##'); else git checkout $args; fi }; f"
@@ -43,11 +44,13 @@
   list = !ghq list                  # リポジトリ一覧
   root = "!exc $SHELL ; :"          # 作業リポジトリのトップに移動
   cd = "!ghq-cd ; :"
+
 [hub]
   protocol = ssh
 
 [merge]
   ff = false
+  tool = vimdiff
 
 [pull]
   ff = only  

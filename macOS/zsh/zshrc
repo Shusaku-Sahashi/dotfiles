@@ -215,10 +215,16 @@ export PATH=$PATH:$GOBIN
 # ########################
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
+
 ##########################
 # jetbrains
 # #######################
 export PATH="$PATH:/Users/sahashi/Library/Application Support/JetBrains/Toolbox/scripts"
+
+#################
+# haskell ghcpu setting
+# ###############
+export PATH="$PATH:$HOME/.ghcup/bin"
 
 
 #####################
@@ -237,7 +243,7 @@ alias awk=gawk
 if [[ ! $(command -v asdf) ]]; then
     brew install asdf
 fi
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+. $(brew --prefix asdf)/libexec/asdf.sh
 
 if [[ ! $(command -v htop) ]]; then
     brew install htop
