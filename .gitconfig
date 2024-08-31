@@ -1,17 +1,17 @@
 # This is Git's per-user configuration file.
 # Please adapt and uncomment the following lines:
 [user]
-    name = Shusaku-Sahashi
-    username = Shusaku-Sahashi
-    email = 13200387+Shusaku-Sahashi@users.noreply.github.com
+  name = Shusaku-Sahashi
+  username = Shusaku-Sahashi
+  email = 13200387+Shusaku-Sahashi@users.noreply.github.com
 
 # git-lfs
 # https://qiita.com/ikmski/items/5cc8b8832336b8d85429
 [filter "lfs"]
-    process = git-lfs filter-process
-    required = true
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
 
 [color]
     ui = auto
@@ -55,4 +55,4 @@
 [pull]
   ff = only  
 [init]
-	defaultBranch = main
+  defaultBranch = main
