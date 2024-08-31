@@ -50,7 +50,7 @@
 
 [merge]
   ff = false
-	tool = vimdiff
+  tool = vimdiff
 
 [pull]
   ff = only  
