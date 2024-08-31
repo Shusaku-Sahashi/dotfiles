@@ -43,7 +43,7 @@ nnoremap Q @q
 " spaceで:を入力
 " nnoremap <Space> :
 " Zで行末まで削除
-nnoremap X Vx
+nnoremap X v$"_x
 
 " Tab系
 " 不可視文字を可視化(タブが「▸-」と表示される)
