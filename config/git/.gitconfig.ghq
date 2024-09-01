@@ -1,0 +1,4 @@
+## Set local specific root in ~/.gitconfig.local file.
+[ghq]
+  root = ${GOROOT}/go/src
+  root = ~/src
