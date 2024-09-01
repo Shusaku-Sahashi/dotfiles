@@ -1,27 +1,25 @@
 # This is Git's per-user configuration file.
 # Please adapt and uncomment the following lines:
 [user]
-    email = 13200387+Shusaku-Sahashi@users.noreply.github.com
-    name = Shusaku-Sahashi
-    username = Shusaku-Sahashi
+  name = Shusaku-Sahashi
+  username = Shusaku-Sahashi
+  email = 13200387+Shusaku-Sahashi@users.noreply.github.com
 
 # git-lfs
 # https://qiita.com/ikmski/items/5cc8b8832336b8d85429
 [filter "lfs"]
-    process = git-lfs filter-process
-    required = true
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
 
 [color]
     ui = auto
 
 [core]
   editor = vim
-  excludesfile = ~/.gitignore_global
-  autocrlf = false
-#  autocrlf = true
-#  safecrlf = true
+  excludesfile = ~/.global_gitignore
+  autocrlf = input
 
 [alias]
   aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/'
@@ -33,17 +31,31 @@
   ft = fetch -p
   diff = diff --word-diff
   pull-mybranch = !git symbolic-ref --short HEAD | xargs git pull origin
-  clean-branch = !git checkout master | git branch --merged | grep -vE 'develop|master' | xargs git branch -d | git checkout -
+  clean-branch = !git checkout main | git branch --merged | grep -E 'develop|feature' | xargs git branch -d | git checkout -
   choo = "!f() { git checkout origin/$1; }; f"
+  stash = stash -u
+  init-commit = commit --allow-empty -m "init commit"
+
+  # https://qiita.com/yukiarrr/items/9c21d97f6c8ac31de157#4-stash%E4%B8%80%E8%A6%A7%E3%82%92%E3%82%82%E3%81%A3%E3%81%A8%E8%A6%8B%E3%82%84%E3%81%99%E3%81%8F%E3%81%97%E3%81%9F%E3%81%84
+  co = "!f() { args=$@; if [ -z \"$args\" ]; then branch=$(git branch --all | grep -v HEAD | fzf --preview 'echo {} | cut -c 3- | xargs git log --color=always' | cut -c 3-); git checkout $(echo $branch | sed 's#remotes/[^/]*/##'); else git checkout $args; fi }; f"
+
+  # for ghq
   get = !ghq get -p                 # クローン
   list = !ghq list                  # リポジトリ一覧
   root = "!exc $SHELL ; :"          # 作業リポジトリのトップに移動
   cd = "!ghq-cd ; :"
+
 [hub]
   protocol = ssh
 
 [merge]
   ff = false
+  tool = vimdiff
 
 [pull]
   ff = only  
+[init]
+  defaultBranch = main
+
+[include]
+  path = ~/.gitconfig.local

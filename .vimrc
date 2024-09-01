@@ -36,6 +36,14 @@ set wildmode=list:longest
 " 折り返し時に表示行単位での移動できるようにする
 nnoremap j gj
 nnoremap k gk
+" Yで行末までコピー
+nnoremap Y y$
+" Qでマクロを実行
+nnoremap Q @q
+" spaceで:を入力
+" nnoremap <Space> :
+" Zで行末まで削除
+nnoremap X v$"_x
 
 " Tab系
 " 不可視文字を可視化(タブが「▸-」と表示される)
@@ -63,6 +71,11 @@ set backspace=2
 set relativenumber
 " クリップボードに連携する。
 set clipboard+=unnamed
+
+
+"x キー削除でデフォルトレジスタに入れない
+nnoremap x "_x
+vnoremap x "_x
 
 """""""""""""""""""""""""
 "      インデント
@@ -127,3 +140,6 @@ function! s:filetype()
    " これも <A-w> の部分は自分の環境に合わせて直してね
     call timer_start(0, { -> feedkeys("\<C-w>\<S-n>") })
 endfunction
+
+" json format
+command! Jqf %!jq '.'
