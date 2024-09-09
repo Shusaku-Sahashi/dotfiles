@@ -6,12 +6,16 @@ dotfiles
 ├── README.md
 ├── .bin.local/                     # Locate local only scripts (put `.local` on file name)
 ├── .bin/                           # Install scripts
-│       ├── install_tools.sh
 │       ├── setup.ps1               # Windows setup script (Not Work Now)
 │       ├── setup.sh                # setup script
 ├── .config/                        # Configuration files
+│       ├── hammerscoop             # Keymap/Automation setting (see: https://www.hammerspoon.org/)
 ├── Brewfile                        # brew bundle file (see: https://github.com/Homebrew/homebrew-bundle)
 ```
 
 ## How to set up your GitHub account?
 If you want to set up your GitHub account, create `.gitconfig.local` file $HOME directory.
+
+## Tools
+- [Homebrew](https://brew.sh/): Package manager for macOS
+- [Hammerspoon](https://www.hammerspoon.org/): Keymap/Automation setting
