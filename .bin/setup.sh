@@ -14,10 +14,16 @@ brew bundle --no-lock --file "$(git rev-parse --show-toplevel)/Brewfile"
 
 # create symbolic link
 DOT_FILES=( .gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc )
-
 for file in ${DOT_FILES[@]}
 do
     ln -s $HOME/dotfiles/$file $HOME/$file 2>/dev/null || echo "Pass creating link of $file. It already exists"
+done
+
+## create config symbolic link
+DOT_CONFIG_DIR=( hammerspoon )
+for dir in ${DOT_CONFIG_DIR[@]}
+do
+    ln -s $HOME/dotfiles/config/$dir $HOME/.$dir 2>/dev/null || echo "Pass creating link of $dir. It already exists"
 done
 
 ## zshのセットアップを記述する。
