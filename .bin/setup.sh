@@ -17,13 +17,13 @@ DOT_FILES=( .gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc )
 
 for file in ${DOT_FILES[@]}
 do
-    ln -s $HOME/dotfiles/$file $HOME/$file
+    ln -s $HOME/dotfiles/$file $HOME/$file 2>/dev/null || echo "Pass creating link of $file. It already exists"
 done
 
 ## zshのセットアップを記述する。
 ## https://dev.classmethod.jp/articles/zsh-prezto/
 if [ ! -d $HOME/.zprezto ]; then
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 fi
 
 DOT_FILES=( zlogin zlogout zpreztorc zprofile zshenv zshrc )
@@ -31,7 +31,7 @@ if [ ! -d $HOME/zsh_bk ]; then
     mkdir -p $HOME/zsh_bk
     for file in ${DOT_FILES[@]}
     do
-        mv $HOME/.$file $HOME/.zsh_bk/$file
+        mv $HOME/.$file $HOME/.zsh_bk/$file 2>/dev/null || echo "Pass back-up $file, It doesn't exist."
     done
 fi
 
