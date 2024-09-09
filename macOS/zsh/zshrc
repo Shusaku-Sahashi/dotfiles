@@ -45,6 +45,12 @@ if [[ -s "~/dotfiles/.zsh/rc/git.zsh" ]] then;
     source ~/dotfiles/.zsh/rc/git.zsh
 fi 
 
+### StarShip setting
+if [[ ! $(command -v starship) ]]; then
+    brew install starship
+fi
+eval "$(starship init zsh)"
+
 # #################################
 # zsh setting
 # #################################
