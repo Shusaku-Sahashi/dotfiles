@@ -1,0 +1,34 @@
+{
+  "title": "alter En to Jp",
+  "rules": [
+    {
+      "description": "Space + Shft + Ctrl: En, Space + Shft: Jp",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": ["left_control", "right_shift"]
+            }
+          },
+          "to": [
+            {"key_code": "japanese_eisuu"}
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": ["right_shift"]
+            }
+          },
+          "to": [
+            {"key_code": "japanese_kana"}
+          ]
+        }
+      ]
+    }
+  ]
+}
