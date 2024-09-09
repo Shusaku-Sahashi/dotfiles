@@ -6,7 +6,9 @@ if [ ! -x "$(command -v brew)" ]; then
 fi
 
 ## install tools
-./install_tools.sh
+##  https://github.com/Homebrew/homebrew-bundle
+brew bundle --no-lock
+brew bundle --file "$(git rev-parse --show-toplevel)/Bundlefile"
 
 # create symbolic link
 DOT_FILES=( .gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc )
