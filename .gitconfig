@@ -53,7 +53,8 @@
   tool = vimdiff
 
 [pull]
-  ff = only  
+  ff = only
+
 [init]
   defaultBranch = main
 
