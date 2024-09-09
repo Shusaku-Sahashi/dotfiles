@@ -10,6 +10,7 @@ dotfiles
 │       ├── setup.ps1               # Windows setup script (Not Work Now)
 │       ├── setup.sh                # setup script
 ├── .config/                        # Configuration files
+├── Brewfile                        # brew bundle file (see: https://github.com/Homebrew/homebrew-bundle)
 ```
 
 ## How to set up your GitHub account?
