@@ -24,7 +24,9 @@ fi
 # #################################
 # local fileがあれば読み込む
 # #################################
-source ~/dotfiles/.bin.local/.zshrc.local
+if [[ -s "$HOME/dotfiles/.bin/local/.zshrc.local" ]]; then
+    source ~/dotfiles/.bin.local/.zshrc.local
+fi
 
 ## OS毎の設定を読み込む。
 case ${OSTYPE} in
