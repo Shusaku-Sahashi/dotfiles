@@ -1,6 +1,5 @@
 tap "homebrew/bundle"
 tap "homebrew/services"
-
 brew "asdf"
 brew "bat"
 brew "eza"
