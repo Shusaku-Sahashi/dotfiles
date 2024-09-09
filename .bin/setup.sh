@@ -1,12 +1,16 @@
 #!/bin/bash
 
+set -e
+set -x
+
 # set up homobrew
 if [ ! -x "$(command -v brew)" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 ## install tools
-./install_tools.sh
+##  https://github.com/Homebrew/homebrew-bundle
+brew bundle --no-lock --file "$(git rev-parse --show-toplevel)/Brewfile"
 
 # create symbolic link
 DOT_FILES=( .gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc )
