@@ -5,8 +5,6 @@ local opt = vim.opt
 opt.relativenumber = true
 opt.number = true
 
-opt.timeoutlen = 300
-
 -- tabs & indentation
 opt.tabstop = 2 -- 2 space for tabs (prettier default)
 opt.shiftwidth = 2 -- 2 spaces for indent width
