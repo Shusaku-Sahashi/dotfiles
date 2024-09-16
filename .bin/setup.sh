@@ -23,6 +23,7 @@ done
 declare -A DOT_CONFIG_DIR_MAP=( 
   [hammerspoon]="" 
   [wezterm]=".config/"
+  [nvim]=".config/"
 )
 for dir in ${!DOT_CONFIG_DIR_MAP[@]}
 do

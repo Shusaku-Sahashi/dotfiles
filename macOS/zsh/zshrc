@@ -267,6 +267,8 @@ alias docker-stop1='docker stop $(docker ps -l -q)'
 
 alias jqclip='pbpaste | jq'
 
+alias vim=nvim
+
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/sahashi/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
