@@ -1,4 +1,5 @@
-local wezterm = require 'wezterm'
+local wezterm = require('wezterm')
+local nvsplit = require('nvim-split')
 local act = wezterm.action
 
 return {
@@ -110,6 +111,17 @@ return {
     { key = 'DownArrow', mods = 'SHIFT|CTRL', action = act.AdjustPaneSize{ 'Down', 1 } },
     { key = 'Copy', mods = 'NONE', action = act.CopyTo 'Clipboard' },
     { key = 'Paste', mods = 'NONE', action = act.PasteFrom 'Clipboard' },
+
+    -- move between split panes
+    nvsplit.split_nav('move', 'h'),
+    nvsplit.split_nav('move', 'j'),
+    nvsplit.split_nav('move', 'k'),
+    nvsplit.split_nav('move', 'l'),
+    -- resize panes
+    nvsplit.split_nav('resize', 'h'),
+    nvsplit.split_nav('resize', 'j'),
+    nvsplit.split_nav('resize', 'k'),
+    nvsplit.split_nav('resize', 'l'),
   },
 
   key_tables = {
@@ -190,6 +202,5 @@ return {
       { key = 'UpArrow', mods = 'NONE', action = act.CopyMode 'PriorMatch' },
       { key = 'DownArrow', mods = 'NONE', action = act.CopyMode 'NextMatch' },
     },
-
   }
 }
