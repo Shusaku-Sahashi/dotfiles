@@ -19,4 +19,7 @@ require("lazy").setup({
     -- import your plugins
     { import = "config/plugins" },
   },
+  change_detection = {
+    notify = false,
+  },
 })

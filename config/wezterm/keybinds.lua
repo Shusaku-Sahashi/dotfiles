@@ -35,6 +35,35 @@ return {
     { key = '(', mods = 'CTRL', action = act.ActivateTab(-1) },
     { key = '(', mods = 'SHIFT|CTRL', action = act.ActivateTab(-1) },
 
+	-- workspace 
+	-- see: https://zenn.dev/sankantsu/articles/e713d52825dbbb
+	{ mods = 'LEADER', key = 's',     action = wezterm.action_callback (function (win, pane)
+      -- workspace のリストを作成
+      local workspaces = {}
+      for i, name in ipairs(wezterm.mux.get_workspace_names()) do
+        table.insert(workspaces, {
+          id = name,
+          label = string.format("%d. %s", i, name),
+        })
+      end
+      local current = wezterm.mux.get_active_workspace()
+      -- 選択メニューを起動
+      win:perform_action(act.InputSelector {
+        action = wezterm.action_callback(function (_, _, id, label)
+          if not id and not label then
+            wezterm.log_info "Workspace selection canceled"  -- 入力が空ならキャンセル
+          else
+            win:perform_action(act.SwitchToWorkspace { name = id }, pane)  -- workspace を移動
+          end
+        end),
+        title = "Select workspace",
+        choices = workspaces,
+        fuzzy = true,
+        -- fuzzy_description = string.format("Select workspace: %s -> ", current), -- requires nightly build
+       }, pane)
+      end),
+	},
+
     { key = 'C', mods = 'CTRL', action = act.CopyTo 'Clipboard' },
     { key = 'C', mods = 'SHIFT|CTRL', action = act.CopyTo 'Clipboard' },
     { key = 'F', mods = 'CTRL', action = act.Search 'CurrentSelectionOrEmptyString' },

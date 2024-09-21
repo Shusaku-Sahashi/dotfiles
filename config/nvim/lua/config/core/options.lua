@@ -38,3 +38,8 @@ opt.clipboard:append("unnamedplus") -- use system clipbord as default register
 -- split windows
 opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizonatal window to the bottom
+
+-- being visible tab, space
+vim.opt.listchars = { tab = ">-", trail = "-", extends = "»", precedes = "«", nbsp = "%" }
+vim.opt.list = true
+
