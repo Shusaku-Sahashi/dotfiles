@@ -15,6 +15,9 @@ return {
     { key = '+', mods = 'SHIFT|CTRL', action = act.IncreaseFontSize },
     { key = '-', mods = 'SHIFT|CTRL', action = act.DecreaseFontSize },
 
+    -- tab
+    { key = 'T', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
+
     -- tab move
     { key = '}', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(1) },
     { key = '{', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(-1) },
@@ -84,8 +87,6 @@ return {
     { key = 'Q', mods = 'SHIFT|CTRL', action = act.QuitApplication },
     { key = 'R', mods = 'CTRL', action = act.ReloadConfiguration },
     { key = 'R', mods = 'SHIFT|CTRL', action = act.ReloadConfiguration },
-    { key = 'T', mods = 'CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
-    { key = 'T', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
     { key = 'U', mods = 'CTRL', action = act.CharSelect{ copy_on_select = true, copy_to =  'ClipboardAndPrimarySelection' } },
     { key = 'U', mods = 'SHIFT|CTRL', action = act.CharSelect{ copy_on_select = true, copy_to =  'ClipboardAndPrimarySelection' } },
     { key = 'V', mods = 'CTRL', action = act.PasteFrom 'Clipboard' },
@@ -146,6 +147,7 @@ return {
     nvsplit.split_nav('move', 'j'),
     nvsplit.split_nav('move', 'k'),
     nvsplit.split_nav('move', 'l'),
+
     -- resize panes
     nvsplit.split_nav('resize', 'h'),
     nvsplit.split_nav('resize', 'j'),

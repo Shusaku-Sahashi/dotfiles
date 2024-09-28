@@ -6,8 +6,8 @@ return {
     options = {
       mode = "tabs",  -- show "tabs" on tab.
       indicator = {
-		  style = 'underline'
-	  }
+        style = 'underline'
+      }
     },
   },
 }

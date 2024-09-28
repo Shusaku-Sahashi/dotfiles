@@ -16,8 +16,6 @@ keymap.set("n", "<Esc><Esc>", ":nohlsearch<CR><Esc>", {desc = "Clear search high
 keymap.set("v", "<Esc><Esc>", ":nohlsearch<CR><Esc>", {desc = "Clear search highlights"})
 
 -- To be easy manipulate
-keymap.set("n", "<leader>w", ":w<CR>")
-keymap.set("n", "<leader>q", ":q<CR>")
 keymap.set("n", "<leader>a", "ggVG", { desc = "Select all"} )
 keymap.set("i", "<C-a>", "<Esc>ggVG", { desc = "Select all from insert mode" } )
 keymap.set("n", "<leader><C-e>", ":new ~/.config/nvim<CR>", { desc = "Open nvim setting" } )
