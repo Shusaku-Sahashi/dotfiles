@@ -20,10 +20,13 @@ do
 done
 
 ## create config symbolic link
-DOT_CONFIG_DIR=( hammerspoon )
-for dir in ${DOT_CONFIG_DIR[@]}
+declare -A DOT_CONFIG_DIR_MAP=( 
+  [hammerspoon]="" 
+  [wezterm]=".config/"
+)
+for dir in ${!DOT_CONFIG_DIR_MAP[@]}
 do
-    ln -s $HOME/dotfiles/config/$dir $HOME/.$dir 2>/dev/null || echo "Pass creating link of $dir. It already exists"
+    ln -s $HOME/dotfiles/config/$dir $HOME/${DOT_CONFIG_DIR_MAP[$dir]}.$dir 2>/dev/null || echo "Pass creating link of $dir. It already exists"
 done
 
 ## zshのセットアップを記述する。
