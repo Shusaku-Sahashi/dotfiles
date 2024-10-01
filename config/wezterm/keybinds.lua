@@ -1,4 +1,5 @@
-local wezterm = require 'wezterm'
+local wezterm = require('wezterm')
+local nvsplit = require('nvim-split')
 local act = wezterm.action
 
 return {
@@ -13,6 +14,9 @@ return {
     { key = '|', mods = 'SHIFT|CTRL', action = act.ResetFontSize },
     { key = '+', mods = 'SHIFT|CTRL', action = act.IncreaseFontSize },
     { key = '-', mods = 'SHIFT|CTRL', action = act.DecreaseFontSize },
+
+    -- tab
+    { key = 'T', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
 
     -- tab move
     { key = '}', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(1) },
@@ -34,6 +38,35 @@ return {
     { key = '(', mods = 'CTRL', action = act.ActivateTab(-1) },
     { key = '(', mods = 'SHIFT|CTRL', action = act.ActivateTab(-1) },
 
+	-- workspace 
+	-- see: https://zenn.dev/sankantsu/articles/e713d52825dbbb
+	{ mods = 'LEADER', key = 's',     action = wezterm.action_callback (function (win, pane)
+      -- workspace のリストを作成
+      local workspaces = {}
+      for i, name in ipairs(wezterm.mux.get_workspace_names()) do
+        table.insert(workspaces, {
+          id = name,
+          label = string.format("%d. %s", i, name),
+        })
+      end
+      local current = wezterm.mux.get_active_workspace()
+      -- 選択メニューを起動
+      win:perform_action(act.InputSelector {
+        action = wezterm.action_callback(function (_, _, id, label)
+          if not id and not label then
+            wezterm.log_info "Workspace selection canceled"  -- 入力が空ならキャンセル
+          else
+            win:perform_action(act.SwitchToWorkspace { name = id }, pane)  -- workspace を移動
+          end
+        end),
+        title = "Select workspace",
+        choices = workspaces,
+        fuzzy = true,
+        -- fuzzy_description = string.format("Select workspace: %s -> ", current), -- requires nightly build
+       }, pane)
+      end),
+	},
+
     { key = 'C', mods = 'CTRL', action = act.CopyTo 'Clipboard' },
     { key = 'C', mods = 'SHIFT|CTRL', action = act.CopyTo 'Clipboard' },
     { key = 'F', mods = 'CTRL', action = act.Search 'CurrentSelectionOrEmptyString' },
@@ -54,8 +87,6 @@ return {
     { key = 'Q', mods = 'SHIFT|CTRL', action = act.QuitApplication },
     { key = 'R', mods = 'CTRL', action = act.ReloadConfiguration },
     { key = 'R', mods = 'SHIFT|CTRL', action = act.ReloadConfiguration },
-    { key = 'T', mods = 'CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
-    { key = 'T', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
     { key = 'U', mods = 'CTRL', action = act.CharSelect{ copy_on_select = true, copy_to =  'ClipboardAndPrimarySelection' } },
     { key = 'U', mods = 'SHIFT|CTRL', action = act.CharSelect{ copy_on_select = true, copy_to =  'ClipboardAndPrimarySelection' } },
     { key = 'V', mods = 'CTRL', action = act.PasteFrom 'Clipboard' },
@@ -100,16 +131,28 @@ return {
     { key = 'PageDown', mods = 'SHIFT', action = act.ScrollByPage(1) },
     { key = 'PageDown', mods = 'CTRL', action = act.ActivateTabRelative(1) },
     { key = 'PageDown', mods = 'SHIFT|CTRL', action = act.MoveTabRelative(1) },
-    { key = 'LeftArrow', mods = 'SHIFT|CTRL', action = act.ActivatePaneDirection 'Left' },
-    { key = 'LeftArrow', mods = 'SHIFT|ALT|CTRL', action = act.AdjustPaneSize{ 'Left', 1 } },
-    { key = 'RightArrow', mods = 'SHIFT|CTRL', action = act.ActivatePaneDirection 'Right' },
-    { key = 'RightArrow', mods = 'SHIFT|ALT|CTRL', action = act.AdjustPaneSize{ 'Right', 1 } },
-    { key = 'UpArrow', mods = 'SHIFT|CTRL', action = act.ActivatePaneDirection 'Up' },
-    { key = 'UpArrow', mods = 'SHIFT|ALT|CTRL', action = act.AdjustPaneSize{ 'Up', 1 } },
-    { key = 'DownArrow', mods = 'SHIFT|CTRL', action = act.ActivatePaneDirection 'Down' },
-    { key = 'DownArrow', mods = 'SHIFT|ALT|CTRL', action = act.AdjustPaneSize{ 'Down', 1 } },
+    { key = 'h', mods = 'LEADER', action = act.ActivatePaneDirection 'Left' },
+    { key = 'LeftArrow', mods = 'SHIFT|CTRL', action = act.AdjustPaneSize{ 'Left', 1 } },
+    { key = 'l', mods = 'LEADER', action = act.ActivatePaneDirection 'Right' },
+    { key = 'RightArrow', mods = 'SHIFT|CTRL', action = act.AdjustPaneSize{ 'Right', 1 } },
+    { key = 'k', mods = 'LEADER', action = act.ActivatePaneDirection 'Up' },
+    { key = 'UpArrow', mods = 'SHIFT|CTRL', action = act.AdjustPaneSize{ 'Up', 1 } },
+    { key = 'j', mods = 'LEADER', action = act.ActivatePaneDirection 'Down' },
+    { key = 'DownArrow', mods = 'SHIFT|CTRL', action = act.AdjustPaneSize{ 'Down', 1 } },
     { key = 'Copy', mods = 'NONE', action = act.CopyTo 'Clipboard' },
     { key = 'Paste', mods = 'NONE', action = act.PasteFrom 'Clipboard' },
+
+    -- move between split panes
+    nvsplit.split_nav('move', 'h'),
+    nvsplit.split_nav('move', 'j'),
+    nvsplit.split_nav('move', 'k'),
+    nvsplit.split_nav('move', 'l'),
+
+    -- resize panes
+    nvsplit.split_nav('resize', 'h'),
+    nvsplit.split_nav('resize', 'j'),
+    nvsplit.split_nav('resize', 'k'),
+    nvsplit.split_nav('resize', 'l'),
   },
 
   key_tables = {
@@ -190,6 +233,5 @@ return {
       { key = 'UpArrow', mods = 'NONE', action = act.CopyMode 'PriorMatch' },
       { key = 'DownArrow', mods = 'NONE', action = act.CopyMode 'NextMatch' },
     },
-
   }
 }

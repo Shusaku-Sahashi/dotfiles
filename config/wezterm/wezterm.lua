@@ -3,7 +3,7 @@ require('format')
 require('status')
 
 return {
-	font_size = 15.0,
+	font_size = 17.0,
 	font = wezterm.font('HackGen35 Console NF'),
 	color_scheme = "Catppuccin Mocha (Gogh)",
 	window_background_opacity = 0.93,

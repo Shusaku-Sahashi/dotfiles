@@ -24,7 +24,7 @@ fi
 # #################################
 # local fileがあれば読み込む
 # #################################
-if [[ -s "$HOME/dotfiles/.bin/local/.zshrc.local" ]]; then
+if [[ -s "~/dotfiles/.bin.local/.zshrc.local" ]]; then
     source ~/dotfiles/.bin.local/.zshrc.local
 fi
 
@@ -266,6 +266,8 @@ alias docker-stop1='docker stop $(docker ps -l -q)'
 
 
 alias jqclip='pbpaste | jq'
+
+alias vim=nvim
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/sahashi/.rd/bin:$PATH"
