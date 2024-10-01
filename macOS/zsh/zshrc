@@ -24,7 +24,7 @@ fi
 # #################################
 # local fileがあれば読み込む
 # #################################
-if [[ -s "$HOME/dotfiles/.bin/local/.zshrc.local" ]]; then
+if [[ -s "~/dotfiles/.bin.local/.zshrc.local" ]]; then
     source ~/dotfiles/.bin.local/.zshrc.local
 fi
 

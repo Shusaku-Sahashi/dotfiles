@@ -35,6 +35,7 @@ return {
         "cssls",
         "lua_ls",
         "hls",
+        "gopls",
       },
     })
 
