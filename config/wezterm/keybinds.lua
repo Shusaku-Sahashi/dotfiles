@@ -66,6 +66,24 @@ return {
        }, pane)
       end),
 	},
+	  {
+		-- Create new workspace
+		mods = 'LEADER',
+		key = 'c',
+		action = act.PromptInputLine {
+		  description = "(wezterm) Create new workspace:",
+		  action = wezterm.action_callback(function(window, pane, line)
+			if line then
+			  window:perform_action(
+				act.SwitchToWorkspace {
+				  name = line,
+				},
+				pane
+			  )
+			end
+		  end),
+		},
+	  },
 
     { key = 'C', mods = 'CTRL', action = act.CopyTo 'Clipboard' },
     { key = 'C', mods = 'SHIFT|CTRL', action = act.CopyTo 'Clipboard' },
