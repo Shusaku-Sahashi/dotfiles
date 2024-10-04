@@ -33,9 +33,10 @@ return {
         "tsserver",
         "html",
         "cssls",
-        "lua_ls",
-        "hls",
-        "gopls",
+        "lua_ls",    -- lua
+        "hls",       -- haskell
+        "gopls",     -- golang
+        "pyslp",     -- python
       },
     })
 
