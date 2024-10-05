@@ -93,23 +93,46 @@ return {
           capabilities = capabilities,
         })
       end,
-      ["lua_ls"] = function()
-        -- configure lua server (with special settings)
-        lspconfig["lua_ls"].setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              -- make the language server recognize "vim" global
-              diagnostics = {
-                globals = { "vim" },
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
-            },
-          },
-        })
-      end,
+     ["lua_ls"] = function()
+       -- configure lua server (with special settings)
+       lspconfig["lua_ls"].setup({
+         capabilities = capabilities,
+         settings = {
+           Lua = {
+             -- make the language server recognize "vim" global
+             diagnostics = {
+               globals = { "vim" },
+             },
+             completion = {
+               callSnippet = "Replace",
+             },
+           },
+         },
+       })
+     end,
+     ["pylsp"] = function()
+       lspconfig["pylsp"].setup({
+           capabilities = capabilities,
+           settings = {
+               pylsp = {
+                   plugins = {
+                      -- For module completion
+                      -- https://github.com/python-lsp/python-lsp-server/blob/develop/docs/autoimport.md
+                      rope_autoimport = { enabled = true },
+                      -- For format
+                      ruff = {
+                           enabled = true,
+                           formatEnabled = true,
+                           select = {
+                               -- See ruff linter
+                               "E", "F", "PL"
+                           }
+                      },
+                   }
+               }
+           }
+       })
+     end,
     })
   end,
 }
