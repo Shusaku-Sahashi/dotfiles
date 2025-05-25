@@ -24,10 +24,10 @@ return {
 
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
     require("luasnip.loaders.from_vscode").lazy_load()
-    
+
     cmp.setup({
       completion = {
-        completeopt = "menu,menuone,preview,noselect",
+        completeopt = "menu,menuone,preview", -- 1つめがデフォルトで選択されていたいので、"noselect" を除外。
       },
       snippet = { -- configure how nvim-cmp interacts with snippet engine
         expand = function(args)
