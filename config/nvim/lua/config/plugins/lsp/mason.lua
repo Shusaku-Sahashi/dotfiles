@@ -37,6 +37,7 @@ return {
         "hls",       -- haskell
         "gopls",     -- golang
         "pyslp",     -- python
+        "yamlls",    -- yaml
       },
     })
 

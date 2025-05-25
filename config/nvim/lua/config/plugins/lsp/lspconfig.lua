@@ -93,6 +93,7 @@ return {
           capabilities = capabilities,
         })
       end,
+<<<<<<< Updated upstream
      ["lua_ls"] = function()
        -- configure lua server (with special settings)
        lspconfig["lua_ls"].setup({
@@ -133,6 +134,42 @@ return {
            }
        })
      end,
+=======
+      ["lua_ls"] = function()
+        -- configure lua server (with special settings)
+        lspconfig["lua_ls"].setup({
+          capabilities = capabilities,
+          settings = {
+            Lua = {
+              -- make the language server recognize "vim" global
+              diagnostics = {
+                globals = { "vim" },
+              },
+              completion = {
+                callSnippet = "Replace",
+              },
+            },
+          },
+        })
+        lspconfig["yamlls"].setup({
+          capabilities = capabilities,
+          settings = {
+            yaml = {
+              schemaStore = {
+                enable = true,
+                url = "https://www.schemastore.org/api/json/catalog.json",
+              },
+              validate = true,
+              format = {
+                enable = true
+              },
+              completion = true,
+              hover = true,
+            },
+          },
+        })
+      end,
+>>>>>>> Stashed changes
     })
   end,
 }
