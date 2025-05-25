@@ -16,6 +16,9 @@ dotfiles
 ## How to set up your GitHub account?
 If you want to set up your GitHub account, create `.gitconfig.local` file $HOME directory.
 
+## How to set up to open terminal with `opt + i`
+Using Raycast keymapping
+
 ## Tools
 - [Homebrew](https://brew.sh/): Package manager for macOS
 - [Hammerspoon](https://www.hammerspoon.org/): Keymap/Automation setting
