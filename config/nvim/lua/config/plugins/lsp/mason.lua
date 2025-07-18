@@ -38,6 +38,7 @@ return {
         "gopls",     -- golang
         "pyslp",     -- python
         "yamlls",    -- yaml
+        "clangd",    -- clang
       },
     })
 
