@@ -10,7 +10,7 @@ fi
 
 ## install tools
 ##  https://github.com/Homebrew/homebrew-bundle
-brew bundle --no-lock --file "$(git rev-parse --show-toplevel)/Brewfile"
+brew bundle --file "$(git rev-parse --show-toplevel)/Brewfile"
 
 # create symbolic link
 DOT_FILES=( .gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc )
