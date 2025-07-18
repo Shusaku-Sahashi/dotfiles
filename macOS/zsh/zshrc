@@ -251,7 +251,9 @@ alias awk=gawk
 if [[ ! $(command -v asdf) ]]; then
     brew install asdf
 fi
-. $(brew --prefix asdf)/libexec/asdf.sh
+export ASDF_DATA_DIR=~/.asdf
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
 
 if [[ ! $(command -v htop) ]]; then
     brew install htop
