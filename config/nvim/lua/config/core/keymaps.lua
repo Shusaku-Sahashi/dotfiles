@@ -43,3 +43,9 @@ keymap.set("n", "<leader>tn", ":tabn<CR>", { desc = "Go to next tab" })
 keymap.set("n", "<leader>tp", ":tabp<CR>", { desc = "Go to previous tab" })
 keymap.set("n", "<leader>tf", ":tabnew %<CR>", { desc = "Open current buffer in new tab" })
 
+-- x command don't user register 
+keymap.set("n", "x", '"_x')
+keymap.set("x", "x", '"_x')
+keymap.set("n", "X", '"_d$')
+keymap.set("x", "X", '"_d$')
+
