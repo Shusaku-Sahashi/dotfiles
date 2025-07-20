@@ -246,13 +246,12 @@ alias awk=gawk
 
 
 ###################
-## setting for asdf
+## setting for mise
 ##################
-if [[ ! $(command -v asdf) ]]; then
-    brew install asdf
+if [[ ! $(command -v mise) ]]; then
+    brew install mise
 fi
-export ASDF_DATA_DIR=~/.asdf
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
+eval "$(/opt/homebrew/bin/mise activate zsh)"
 
 
 if [[ ! $(command -v htop) ]]; then
@@ -275,3 +274,4 @@ alias vim=nvim
 export PATH="/Users/sahashi/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+
