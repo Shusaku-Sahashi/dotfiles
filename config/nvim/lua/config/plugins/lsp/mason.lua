@@ -30,13 +30,13 @@ return {
       -- list of servers for mason to install
       -- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
       ensure_installed = {
-        "tsserver",
+        "ts_ls",     -- typescript
         "html",
         "cssls",
         "lua_ls",    -- lua
         "hls",       -- haskell
         "gopls",     -- golang
-        "pyslp",     -- python
+        "pylsp",     -- python
         "yamlls",    -- yaml
         "clangd",    -- clang
       },

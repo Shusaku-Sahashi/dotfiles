@@ -49,3 +49,62 @@ keymap.set("x", "x", '"_x')
 keymap.set("n", "X", '"_d$')
 keymap.set("x", "X", '"_d$')
 
+-- Jump list navigation (you can see the all of jump list with `:jump`)
+-- ファイルのカーソル履歴のみを対象としたジャンプ機能
+local function jump_to_prev_file_location()
+  local jumplist, current_pos = unpack(vim.fn.getjumplist())
+
+  -- 現在位置から前方向に検索
+  for i = current_pos, 1, -1 do
+    local jump = jumplist[i]
+    if jump and jump.bufnr > 0 and vim.api.nvim_buf_is_valid(jump.bufnr) then
+      local buftype = vim.api.nvim_buf_get_option(jump.bufnr, 'buftype')
+      local filetype = vim.api.nvim_buf_get_option(jump.bufnr, 'filetype')
+      local bufname = vim.api.nvim_buf_get_name(jump.bufnr)
+
+      -- 通常のファイルかチェック（NvimTree、help、terminal等を除外）
+      if buftype == '' and
+         filetype ~= 'NvimTree' and
+         filetype ~= 'help' and
+         filetype ~= 'terminal' and
+         bufname ~= '' then
+
+        -- そのジャンプ位置に移動
+        vim.api.nvim_set_current_buf(jump.bufnr)
+        vim.api.nvim_win_set_cursor(0, {jump.lnum, jump.col})
+        return
+      end
+    end
+  end
+  print("No previous file location found")
+end
+
+local function jump_to_next_file_location()
+  local jumplist, current_pos = unpack(vim.fn.getjumplist())
+
+  -- 現在位置から後方向に検索
+  for i = current_pos + 2, #jumplist do
+    local jump = jumplist[i]
+    if jump and jump.bufnr > 0 and vim.api.nvim_buf_is_valid(jump.bufnr) then
+      local buftype = vim.api.nvim_buf_get_option(jump.bufnr, 'buftype')
+      local filetype = vim.api.nvim_buf_get_option(jump.bufnr, 'filetype')
+      local bufname = vim.api.nvim_buf_get_name(jump.bufnr)
+
+      if buftype == '' and
+         filetype ~= 'NvimTree' and
+         filetype ~= 'help' and
+         filetype ~= 'terminal' and
+         bufname ~= '' then
+
+        vim.api.nvim_set_current_buf(jump.bufnr)
+        vim.api.nvim_win_set_cursor(0, {jump.lnum, jump.col})
+        return
+      end
+    end
+  end
+  print("No next file location found")
+end
+
+keymap.set("n", "<C-_>", jump_to_prev_file_location, { desc = "Jump to previous file location" })
+keymap.set("n", "<C-S-_>", jump_to_next_file_location, { desc = "Jump to next file location" })
+
