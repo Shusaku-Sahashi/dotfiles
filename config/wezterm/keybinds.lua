@@ -4,8 +4,6 @@ local act = wezterm.action
 
 return {
   keys = {
-    { key = 'Enter', mods = 'CTRL|SHIFT', action = act.ToggleFullScreen },
-
     -- split screen
     { key = '-', mods = 'LEADER', action = act.SplitVertical{ domain =  'CurrentPaneDomain' } },
     { key = '\\', mods = 'LEADER', action = act.SplitHorizontal{ domain =  'CurrentPaneDomain' } },
@@ -24,65 +22,67 @@ return {
     { key = '@', mods = 'CTRL', action = act.ActivateTab(1) },
     { key = '@', mods = 'SHIFT|CTRL', action = act.ActivateTab(1) },
     { key = '#', mods = 'CTRL', action = act.ActivateTab(2) },
-    { key = '#', mods = 'SHIFT|CTRL', action = act.ActivateTab(2) },
-    { key = '$', mods = 'CTRL', action = act.ActivateTab(3) },
-    { key = '$', mods = 'SHIFT|CTRL', action = act.ActivateTab(3) },
-    { key = '%', mods = 'CTRL', action = act.ActivateTab(4) },
-    { key = '%', mods = 'SHIFT|CTRL', action = act.ActivateTab(4) },
-    { key = '^', mods = 'CTRL', action = act.ActivateTab(5) },
-    { key = '^', mods = 'SHIFT|CTRL', action = act.ActivateTab(5) },
-    { key = '&', mods = 'CTRL', action = act.ActivateTab(6) },
-    { key = '&', mods = 'SHIFT|CTRL', action = act.ActivateTab(6) },
-    { key = '*', mods = 'CTRL', action = act.ActivateTab(7) },
-    { key = '*', mods = 'SHIFT|CTRL', action = act.ActivateTab(7) },
-    { key = '(', mods = 'CTRL', action = act.ActivateTab(-1) },
-    { key = '(', mods = 'SHIFT|CTRL', action = act.ActivateTab(-1) },
+
+    -- 多分使用しないので一旦コメントアウト。
+    -- { key = '#', mods = 'SHIFT|CTRL', action = act.ActivateTab(2) },
+    -- { key = '$', mods = 'CTRL', action = act.ActivateTab(3) },
+    -- { key = '$', mods = 'SHIFT|CTRL', action = act.ActivateTab(3) },
+    -- { key = '%', mods = 'CTRL', action = act.ActivateTab(4) },
+    -- { key = '%', mods = 'SHIFT|CTRL', action = act.ActivateTab(4) },
+    -- { key = '^', mods = 'CTRL', action = act.ActivateTab(5) },
+    -- { key = '^', mods = 'SHIFT|CTRL', action = act.ActivateTab(5) },
+    -- { key = '&', mods = 'CTRL', action = act.ActivateTab(6) },
+    -- { key = '&', mods = 'SHIFT|CTRL', action = act.ActivateTab(6) },
+    -- { key = '*', mods = 'CTRL', action = act.ActivateTab(7) },
+    -- { key = '*', mods = 'SHIFT|CTRL', action = act.ActivateTab(7) },
+    -- { key = '(', mods = 'CTRL', action = act.ActivateTab(-1) },
+    -- { key = '(', mods = 'SHIFT|CTRL', action = act.ActivateTab(-1) },
 
 	-- workspace 
 	-- see: https://zenn.dev/sankantsu/articles/e713d52825dbbb
-	{ mods = 'LEADER', key = 's',     action = wezterm.action_callback (function (win, pane)
-      -- workspace のリストを作成
-      local workspaces = {}
-      for i, name in ipairs(wezterm.mux.get_workspace_names()) do
-        table.insert(workspaces, {
-          id = name,
-          label = string.format("%d. %s", i, name),
-        })
-      end
-      local current = wezterm.mux.get_active_workspace()
-      -- 選択メニューを起動
-      win:perform_action(act.InputSelector {
-        action = wezterm.action_callback(function (_, _, id, label)
-          if not id and not label then
-            wezterm.log_info "Workspace selection canceled"  -- 入力が空ならキャンセル
-          else
-            win:perform_action(act.SwitchToWorkspace { name = id }, pane)  -- workspace を移動
+    { mods = 'LEADER', key = 's', action = wezterm.action_callback (function (win, pane)
+        -- workspace のリストを作成
+        local workspaces = {}
+        for i, name in ipairs(wezterm.mux.get_workspace_names()) do
+          table.insert(workspaces, {
+            id = name,
+            label = string.format("%d. %s", i, name),
+          })
+        end
+        local current = wezterm.mux.get_active_workspace()
+        -- 選択メニューを起動
+        win:perform_action(act.InputSelector {
+          action = wezterm.action_callback(function (_, _, id, label)
+            if not id and not label then
+              wezterm.log_info "Workspace selection canceled"  -- 入力が空ならキャンセル
+            else
+              win:perform_action(act.SwitchToWorkspace { name = id }, pane)  -- workspace を移動
+            end
+          end),
+          title = "Select workspace",
+          choices = workspaces,
+          fuzzy = true,
+          -- fuzzy_description = string.format("Select workspace: %s -> ", current), -- requires nightly build
+         }, pane)
+        end),
+    },
+	  {
+      -- Create new workspace
+      mods = 'LEADER',
+      key = 'c',
+      action = act.PromptInputLine {
+        description = "(wezterm) Create new workspace:",
+        action = wezterm.action_callback(function(window, pane, line)
+          if line then
+            window:perform_action(
+            act.SwitchToWorkspace {
+              name = line,
+            },
+            pane
+            )
           end
         end),
-        title = "Select workspace",
-        choices = workspaces,
-        fuzzy = true,
-        -- fuzzy_description = string.format("Select workspace: %s -> ", current), -- requires nightly build
-       }, pane)
-      end),
-	},
-	  {
-		-- Create new workspace
-		mods = 'LEADER',
-		key = 'c',
-		action = act.PromptInputLine {
-		  description = "(wezterm) Create new workspace:",
-		  action = wezterm.action_callback(function(window, pane, line)
-			if line then
-			  window:perform_action(
-				act.SwitchToWorkspace {
-				  name = line,
-				},
-				pane
-			  )
-			end
-		  end),
-		},
+      },
 	  },
 
     { key = 'C', mods = 'CTRL', action = act.CopyTo 'Clipboard' },
@@ -112,10 +112,6 @@ return {
     { key = 'w', mods = 'LEADER', action = act.CloseCurrentTab{ confirm = true } },
     { key = '[', mods = 'LEADER', action = act.ActivateCopyMode },
     { key = 'z', mods = 'LEADER', action = act.TogglePaneZoomState },
-    { key = '[', mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(-1) },
-    { key = ']', mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(1) },
-    { key = '_', mods = 'CTRL', action = act.DecreaseFontSize },
-    { key = '_', mods = 'SHIFT|CTRL', action = act.DecreaseFontSize },
     { key = 'f', mods = 'SHIFT|CTRL', action = act.Search 'CurrentSelectionOrEmptyString' },
     { key = 'f', mods = 'SUPER', action = act.Search 'CurrentSelectionOrEmptyString' },
     { key = 'h', mods = 'SHIFT|CTRL', action = act.HideApplication },
