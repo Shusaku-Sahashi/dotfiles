@@ -223,6 +223,16 @@ export PATH=$PATH:$GOBIN
 # ########################
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
+###########################
+# Obsidian MCP
+# ########################
+function obs() {
+  (
+    cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/Ideastorage/ \
+    && claude -p "obsidianで次を調査:「$1」。タイトルだけでなく、本文も含めて探してください。また、ファイルを出力する際は、ターミナル上からすぐにアクセスできる様にObsidian URLを一緒に出力してください。" \
+    | BAT_PAGER="" cat -l markdown
+  )
+}
 
 ##########################
 # jetbrains
