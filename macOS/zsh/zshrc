@@ -1,8 +1,6 @@
 #
 # Executes commands at the start of an interactive session.
 #
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
 ############################
@@ -13,7 +11,7 @@ if [[ ! $(command -v brew) ]]; then
 fi
 
 # Source Prezto.
-if [[ ! -s"${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+if [[ ! -e ${ZDOTDIR:-$HOME}/.zprezto/init.zsh ]]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 else 
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -24,7 +22,7 @@ fi
 # #################################
 # local fileがあれば読み込む
 # #################################
-if [[ -s "~/dotfiles/.bin.local/.zshrc.local" ]]; then
+if [[ -e ~/dotfiles/.bin.local/.zshrc.local ]]; then
     source ~/dotfiles/.bin.local/.zshrc.local
 fi
 
@@ -41,9 +39,9 @@ case ${OSTYPE} in
 esac
 
 #### TODO: 後からいい感じにする。
-if [[ -s "~/dotfiles/.zsh/rc/git.zsh" ]] then; 
+if [[ -e ~/dotfiles/.zsh/rc/git.zsh ]] then;
     source ~/dotfiles/.zsh/rc/git.zsh
-fi 
+fi
 
 ### StarShip setting
 if [[ ! $(command -v starship) ]]; then
