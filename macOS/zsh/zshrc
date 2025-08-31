@@ -227,11 +227,42 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 # Obsidian MCP
 # ########################
 function obs() {
+  local start_time=$(date +%s)
+  local spinner_pid
+
+  # スピナー関数
+  show_spinner() {
+    local spin='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    local i=0
+    while :; do
+      i=$(( (i+1) %10 ))
+      printf "\r\033[36m${spin:$i:1} Claude Code処理中... \033[33m$(( $(date +%s) - start_time ))秒経過\033[0m"
+      sleep 0.1
+    done
+  }
+
+  # バックグラウンドでスピナーを開始
+  show_spinner &
+  spinner_pid=$!
+
+  # メイン処理を実行
   (
     cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/Ideastorage/ \
     && claude -p "obsidianで次を調査:「$1」。タイトルだけでなく、本文も含めて探してください。また、ファイルを出力する際は、ターミナル上からすぐにアクセスできる様にObsidian URLを一緒に出力してください。" \
     | BAT_PAGER="" cat -l markdown
   )
+  local exit_code=$?
+
+  # スピナーを停止
+  kill $spinner_pid 2>/dev/null
+  wait $spinner_pid 2>/dev/null
+
+  # 結果を表示
+  local end_time=$(date +%s)
+  local duration=$((end_time - start_time))
+  printf "\r\033[K\033[32m✓ 完了 (${duration}秒)\033[0m\n"
+
+  return $exit_code
 }
 
 ##########################
