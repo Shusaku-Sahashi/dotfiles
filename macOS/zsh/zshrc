@@ -206,8 +206,8 @@ fi
 if [[ ! $(command -v gcloud) ]]; then
     brew install --cask google-cloud-sdk
 fi
-source '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+source '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc'
+source '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'
 
 #####################################
 # go
@@ -312,5 +312,3 @@ alias vim=nvim
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/sahashi/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
-
