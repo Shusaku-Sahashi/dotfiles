@@ -8,26 +8,11 @@ if [ ! -x "$(command -v brew)" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-## install tools
-##  https://github.com/Homebrew/homebrew-bundle
-brew bundle --file "$(git rev-parse --show-toplevel)/Brewfile"
-
 # create symbolic link
 DOT_FILES=( .gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc )
 for file in ${DOT_FILES[@]}
 do
     ln -s $HOME/dotfiles/$file $HOME/$file 2>/dev/null || echo "Pass creating link of $file. It already exists"
-done
-
-## create config symbolic link
-declare DOT_CONFIG_DIR_MAP=( 
-  [hammerspoon]="" 
-  [wezterm]=".config/"
-  [nvim]=".config/"
-)
-for dir in ${!DOT_CONFIG_DIR_MAP[@]}
-do
-    ln -s $HOME/dotfiles/config/$dir $HOME/${DOT_CONFIG_DIR_MAP[$dir]}.$dir 2>/dev/null || echo "Pass creating link of $dir. It already exists"
 done
 
 ## zshのセットアップを記述する。
@@ -50,7 +35,25 @@ do
     ln -s $HOME/dotfiles/macOS/zsh/$file $HOME/.$file
 done
 
-ln -s $HOME/dotfiles/config/wezterm ~/.config/wezterm 
+## install tools
+##  https://github.com/Homebrew/homebrew-bundle
+brew bundle --file "$(git rev-parse --show-toplevel)/Brewfile"
+
+
+if [ ! -d $HOME/.config ]; then
+  mkdir $HOME/.config
+fi
+
+## create config symbolic link
+declare DOT_CONFIG_DIR_MAP=(
+  [hammerspoon]=""
+  [wezterm]=".config/"
+  [nvim]=".config/"
+)
+for dir in ${!DOT_CONFIG_DIR_MAP[@]}
+do
+    ln -s $HOME/dotfiles/config/$dir $HOME/${DOT_CONFIG_DIR_MAP[$dir]}.$dir 2>/dev/null || echo "Pass creating link of $dir. It already exists"
+done
 
 ## key repeating setting
 ## https://apple.stackexchange.com/questions/10467/how-to-increase-keyboard-key-repeat-rate-on-os-x
