@@ -26,17 +26,9 @@ if [[ -e ~/dotfiles/.bin.local/.zshrc.local ]]; then
     source ~/dotfiles/.bin.local/.zshrc.local
 fi
 
-## OS毎の設定を読み込む。
-case ${OSTYPE} in
-    darwin*)
-        # Mac用の設定
-        source ~/dotfiles/macOS/zshrc_mac
-        ;;
-
-    linux*)
-        # Linux用の設定
-        ;;
-esac
+for file in ~/dotfiles/.zsh/rc/**/*.zsh; do
+    source "$file"
+done
 
 #### TODO: 後からいい感じにする。
 if [[ -e ~/dotfiles/.zsh/rc/git.zsh ]] then;

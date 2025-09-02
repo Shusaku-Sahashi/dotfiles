@@ -15,6 +15,7 @@
 !.gitignore
 !.gitconfig
 !.tmux.conf
+!.zsh
 !raycast
 !.editorconfig
 !Brewfile
