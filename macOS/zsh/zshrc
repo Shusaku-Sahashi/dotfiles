@@ -22,11 +22,14 @@ fi
 # #################################
 # local fileがあれば読み込む
 # #################################
-if [[ -e ~/dotfiles/.bin.local/.zshrc.local ]]; then
-    source ~/dotfiles/.bin.local/.zshrc.local
-fi
 
+## load zsh run command
 for file in ~/dotfiles/.zsh/rc/**/*.zsh; do
+    source "$file"
+done
+
+## load local specific setting
+for file in ~/dotfiles/.bin.local/.zsh/**/*.zsh; do
     source "$file"
 done
 
