@@ -149,8 +149,11 @@ function peco-cdr () {
     fi
 }
 zle -N peco-cdr
-bindkey '^E' peco-cdr
+bindkey '^X^R' peco-cdr
 # ####################################
+
+bindkey "^[[5~" backward-word
+bindkey "^[[6~" forward-word
 
 #######################################
 # Setting for exa
