@@ -59,6 +59,24 @@ keymap.set("x", "x", '"_x')
 keymap.set("n", "X", '"_d$')
 keymap.set("x", "X", '"_d$')
 
+-- copy to cripbord
+keymap.set("n", "<leader>y", "\"+y")
+keymap.set("v", "<leader>y", "\"+y")
+keymap.set("n", "<leader>Y", "\"+Y")
+
+-- leave terminal mode with ESC
+keymap.set("t", "<ESC>", '<c-\\><c-n><Plug>(esc)')
+keymap.set("n", "<Plug>(esc)<ESC>", "i<ESC>")
+
+-- select command with Down/Up 
+vim.keymap.set("c", "<Down>", function()
+  return vim.fn.pumvisible() == 1 and "<C-n>" or "<Down>"
+end, { expr = true })
+
+vim.keymap.set("c", "<Up>", function()
+  return vim.fn.pumvisible() == 1 and "<C-p>" or "<Up>"
+end, { expr = true })
+
 -- Jump list navigation (you can see the all of jump list with `:jump`)
 -- ファイルのカーソル履歴のみを対象としたジャンプ機能
 local function jump_to_prev_file_location()
