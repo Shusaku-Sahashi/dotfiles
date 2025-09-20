@@ -1,5 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
+  version = "^1.0.0",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     -- plugin for showing lsp suggest in nvim-cmp
@@ -86,72 +87,72 @@ return {
 
     vim.diagnostic.config({ virtual_text = false })
 
---    mason_lspconfig.setup_handlers({
---      -- default handler for installed servers
---      function(server_name)
---        lspconfig[server_name].setup({
---          capabilities = capabilities,
---        })
---      end,
---      ["lua_ls"] = function()
---        -- configure lua server (with special settings)
---        lspconfig["lua_ls"].setup({
---          capabilities = capabilities,
---          settings = {
---            Lua = {
---              -- make the language server recognize "vim" global
---              diagnostics = {
---                globals = { "vim" },
---              },
---              completion = {
---                callSnippet = "Replace",
---              },
---            },
---          },
---        })
---      end,
---      ["yamlls"] = function()
---        lspconfig["yamlls"].setup({
---          capabilities = capabilities,
---          settings = {
---            yaml = {
---              schemaStore = {
---                enable = true,
---                url = "https://www.schemastore.org/api/json/catalog.json",
---              },
---              validate = true,
---              format = {
---                enable = true
---              },
---              completion = true,
---              hover = true,
---            },
---          },
---        })
---      end,
---      ["pylsp"] = function()
---        lspconfig["pylsp"].setup({
---          capabilities = capabilities,
---          settings = {
---            pylsp = {
---              plugin = {
---                -- For module completion
---                -- https://github.com/python-lsp/python-lsp-server/blob/develop/docs/autoimport.md
---                rope_autoimport = { enabled = true },
---                -- For format
---                ruff = {
---                     enabled = true,
---                     formatEnabled = true,
---                     select = {
---                         -- See ruff linter
---                         "E", "F", "PL"
---                     }
---                },
---              }
---            }
---          }
---        })
---      end
---    })
+    mason_lspconfig.setup_handlers({
+      -- default handler for installed servers
+      function(server_name)
+        lspconfig[server_name].setup({
+          capabilities = capabilities,
+        })
+      end,
+      ["lua_ls"] = function()
+        -- configure lua server (with special settings)
+        lspconfig["lua_ls"].setup({
+          capabilities = capabilities,
+          settings = {
+            Lua = {
+              -- make the language server recognize "vim" global
+              diagnostics = {
+                globals = { "vim" },
+              },
+              completion = {
+                callSnippet = "Replace",
+              },
+            },
+          },
+        })
+      end,
+      ["yamlls"] = function()
+        lspconfig["yamlls"].setup({
+          capabilities = capabilities,
+          settings = {
+            yaml = {
+              schemaStore = {
+                enable = true,
+                url = "https://www.schemastore.org/api/json/catalog.json",
+              },
+              validate = true,
+              format = {
+                enable = true
+              },
+              completion = true,
+              hover = true,
+            },
+          },
+        })
+      end,
+      ["pylsp"] = function()
+        lspconfig["pylsp"].setup({
+          capabilities = capabilities,
+          settings = {
+            pylsp = {
+              plugin = {
+                -- For module completion
+                -- https://github.com/python-lsp/python-lsp-server/blob/develop/docs/autoimport.md
+                rope_autoimport = { enabled = true },
+                -- For format
+                ruff = {
+                     enabled = true,
+                     formatEnabled = true,
+                     select = {
+                         -- See ruff linter
+                         "E", "F", "PL"
+                     }
+                },
+              }
+            }
+          }
+        })
+      end
+    })
   end,
 }

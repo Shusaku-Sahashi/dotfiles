@@ -2,8 +2,9 @@
 return {
   -- package manager for Language Server, debugger, formatter, linter etc...
   "williamboman/mason.nvim",
+  version = "^1.0.0",
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
+    {"williamboman/mason-lspconfig.nvim", version = "^1.0.0"},
     "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
   config = function()
