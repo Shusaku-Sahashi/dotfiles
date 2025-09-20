@@ -29,9 +29,11 @@ for file in ~/dotfiles/.zsh/rc/**/*.zsh; do
 done
 
 ## load local specific setting
-for file in ~/dotfiles/.bin.local/.zsh/**/*.zsh; do
-    source "$file"
-done
+if [[ -e ~/dotfiles/.bin.local/.zsh/**/*.zsh ]]; then
+  for file in ~/dotfiles/.bin.local/.zsh/**/*.zsh; do
+      source "$file"
+  done
+fi
 
 #### TODO: 後からいい感じにする。
 if [[ -e ~/dotfiles/.zsh/rc/git.zsh ]] then;
