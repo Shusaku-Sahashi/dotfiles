@@ -4,7 +4,7 @@ return {
   "williamboman/mason.nvim",
   version = "^1.0.0",
   dependencies = {
-    {"williamboman/mason-lspconfig.nvim", version = "^1.0.0"},
+    { "williamboman/mason-lspconfig.nvim", version = "^1.0.0" },
     "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
   config = function()
@@ -29,26 +29,27 @@ return {
 
     mason_lspconfig.setup({
       -- list of servers for mason to install
-      -- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
       ensure_installed = {
-        "ts_ls",     -- typescript
+        "ts_ls", -- typescript
         "html",
         "cssls",
-        "lua_ls",    -- lua
-        "hls",       -- haskell
-        "gopls",     -- golang
-        "pylsp",     -- python
-        "yamlls",    -- yaml
-        "clangd",    -- clang
+        "lua_ls", -- lua
+        "hls",    -- haskell
+        "gopls",  -- golang
+        "pylsp",  -- python
+        "yamlls", -- yaml
+        "clangd", -- clang
+        "bashls", -- bash lsp
       },
     })
 
-    -- 
     mason_tool_installer.setup({
       ensure_installed = {
-        "prettier", -- prettier formatter
-        "stylua", -- lua formatter
+        "prettier",   -- prettier formatter
+        "stylua",     -- lua formatter
         "eslint_d",
+        "shellcheck", -- bash lint
+        "shfmt",      -- bash fmt
       },
     })
   end,

@@ -8,7 +8,7 @@ return {
     -- plugin for fileoperation
     { "antosha417/nvim-lsp-file-operations", config = true },
     -- improve lua nvim config writing experience.
-    { "folke/lazydev.nvim", ft = 'lua', opts = {} },
+    { "folke/lazydev.nvim",                  ft = 'lua',   opts = {} },
   },
   config = function()
     -- import lspconfig plugin
@@ -87,21 +87,41 @@ return {
 
     vim.diagnostic.config({ virtual_text = false })
 
+    local on_attach = function(client, bufnr)
+      if client.server_capabilities.documentFormattingProvider then
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          group = vim.api.nvim_create_augroup("LspFormat." .. bufnr, {}),
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.format({ bufnr = bufnr })
+          end,
+        })
+      end
+    end
+
+    -- local lsp_config = require("config.plugins.lsp.config.handler")
+    -- You can refer nvim-lspconfig setting sheet to find your setting.
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+    -- or check`:help lspconfig-all`
     mason_lspconfig.setup_handlers({
-      -- default handler for installed servers
+      -- default handler for installed servers.
+      -- this handler is called for language server that don't have handler.
       function(server_name)
         lspconfig[server_name].setup({
           capabilities = capabilities,
+          on_attach = on_attach,
         })
       end,
       ["lua_ls"] = function()
         -- configure lua server (with special settings)
+        -- https://luals.github.io/wiki/settings/
         lspconfig["lua_ls"].setup({
           capabilities = capabilities,
+          on_attach = on_attach,
           settings = {
             Lua = {
-              -- make the language server recognize "vim" global
               diagnostics = {
+                -- make the language server recognize "vim" global
                 globals = { "vim" },
               },
               completion = {
@@ -114,6 +134,7 @@ return {
       ["yamlls"] = function()
         lspconfig["yamlls"].setup({
           capabilities = capabilities,
+          on_attach = on_attach,
           settings = {
             yaml = {
               schemaStore = {
@@ -133,6 +154,7 @@ return {
       ["pylsp"] = function()
         lspconfig["pylsp"].setup({
           capabilities = capabilities,
+          on_attach = on_attach,
           settings = {
             pylsp = {
               plugin = {
@@ -141,12 +163,12 @@ return {
                 rope_autoimport = { enabled = true },
                 -- For format
                 ruff = {
-                     enabled = true,
-                     formatEnabled = true,
-                     select = {
-                         -- See ruff linter
-                         "E", "F", "PL"
-                     }
+                  enabled = true,
+                  formatEnabled = true,
+                  select = {
+                    -- See ruff linter
+                    "E", "F", "PL"
+                  }
                 },
               }
             }
