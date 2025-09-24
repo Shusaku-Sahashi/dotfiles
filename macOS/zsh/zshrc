@@ -189,6 +189,11 @@ if [[ ! $(command -v ghq) ]]; then
     brew install ghq
 fi
 alias ghq-cd='cd $(ghq list --full-path | fzf)'
+alias ghq-new=ghq-new
+function ghq-new() {
+  ghq create "$1"
+  cd ~/ghq/github.com/$(git config ghq.user)/"$1"
+}
 
 #####################################
 # windows setting
