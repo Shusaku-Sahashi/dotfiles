@@ -4,7 +4,7 @@ return {
   version = "*",
   opts = {
     options = {
-      mode = "tabs",  -- show "tabs" on tab.
+      mode = "tabs", -- show "tabs" on tab.
       indicator = {
         style = 'underline'
       }
