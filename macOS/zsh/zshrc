@@ -179,7 +179,7 @@ alias lta=eta
 if [[ ! $(command -v bat) ]]; then
     brew install bat
 fi
-alias cat=bat
+alias cat="bat --paging=never"
 
 ######################################
 # Setting for ghq
