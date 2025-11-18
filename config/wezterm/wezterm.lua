@@ -9,7 +9,7 @@ return {
   },
   color_scheme = "Catppuccin Mocha",
 
-  window_background_opacity = 0.90,
+  window_background_opacity = 0.60,
   macos_window_background_blur = 20,
 
   use_ime = true,
