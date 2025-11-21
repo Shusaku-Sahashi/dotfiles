@@ -9,7 +9,7 @@ return {
   },
   color_scheme = "Catppuccin Mocha",
 
-  window_background_opacity = 0.60,
+  window_background_opacity = 0.70,
   macos_window_background_blur = 20,
 
   use_ime = true,
@@ -24,11 +24,11 @@ return {
   show_tabs_in_tab_bar = true,
   hide_tab_bar_if_only_one_tab = true,
 
-  -- Tab transparancy
-  window_frame = {
-    inactive_titlebar_bg = "none",
-    active_titlebar_bg = "none",
-  },
+  -- -- Tab transparancy
+  -- window_frame = {
+  --   inactive_titlebar_bg = "none",
+  --   active_titlebar_bg = "none",
+  -- },
 
   -- Delete tab border line
   colors = {
