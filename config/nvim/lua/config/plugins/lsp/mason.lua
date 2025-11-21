@@ -30,17 +30,16 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
-        "ts_ls",     -- typescript
-        "html",      -- html
-        "cssls",     -- css
-        "lua_ls",    -- lua
-        "hls",       -- haskell
-        "gopls",     -- golang
-        "pylsp",     -- python
-        "yamlls",    -- yaml
-        "clangd",    -- clang
-        "bashls",    -- bash lsp
-        "kotlin-lsp" -- kotlin
+        "ts_ls",  -- typescript
+        "html",   -- html
+        "cssls",  -- css
+        "lua_ls", -- lua
+        "hls",    -- haskell
+        "gopls",  -- golang
+        "pylsp",  -- python
+        "yamlls", -- yaml
+        "clangd", -- clang
+        "bashls", -- bash lsp
       },
     })
 
@@ -51,7 +50,6 @@ return {
         "eslint_d",
         "shellcheck", -- bash lint
         "shfmt",      -- bash fmt
-        "ktlint"      -- kotlin lint
       },
     })
   end,
