@@ -1,2 +1,1 @@
-DIR_PAHT=$(git rev-parse --show-toplevel)
-alias dev-container="${DIR_PAHT}/config/devcontainer/start-dev-container.sh"
+alias dev-container="~/dotfiles/config/devcontainer/start-dev-container.sh"
