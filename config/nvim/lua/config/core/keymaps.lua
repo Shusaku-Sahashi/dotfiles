@@ -66,7 +66,7 @@ keymap.set("n", "<leader>Y", "\"+Y")
 
 -- leave terminal mode with ESC
 keymap.set("t", "<ESC>", '<c-\\><c-n><Plug>(esc)')
-keymap.set("n", "<Plug>(esc)<ESC>", "<ESC>")
+keymap.set("n", "<Plug>(esc)<ESC>", "i<ESC>")
 
 -- select command with Down/Up
 vim.keymap.set("c", "<Down>", function()
