@@ -3,14 +3,14 @@ require('format')
 require('status')
 
 return {
-  font_size = 16.0,
+  font_size = 15.5,
   font = wezterm.font_with_fallback {
     'HackGen35 Console NF'
   },
   color_scheme = "Catppuccin Mocha",
 
-  window_background_opacity = 0.70,
-  macos_window_background_blur = 20,
+  window_background_opacity = 0.85,
+  macos_window_background_blur = 7,
 
   use_ime = true,
   automatically_reload_config = true,
