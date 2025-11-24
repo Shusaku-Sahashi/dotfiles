@@ -24,9 +24,18 @@ return {
 
     nvimtree.setup({
       view = {
-        width = 35,
+        width = 55,
         relativenumber = true,
       },
+      update_focused_file = {
+        enable = true,      -- ファイルを開いたら自動でツリーが追従
+        update_root = {
+          enable = true,    -- ルートディレクトリを更新
+          ignore_list = {}, -- 無視するディレクトリリスト
+        },
+      },
+      sync_root_with_cwd = true, -- カレントディレクトリと同期
+      respect_buf_cwd = true,    -- バッファのcwdを尊重
       -- change folder arrow icons
       renderer = {
         indent_markers = {
@@ -34,10 +43,6 @@ return {
         },
         icons = {
           glyphs = {
-            folder = {
-              arrow_closed = "", -- arrow when folder is closed
-              arrow_open = "", -- arrow when folder is open
-            },
           },
         },
       },
