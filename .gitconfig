@@ -44,10 +44,8 @@
   get = !ghq get -p                 # クローン
   root = "!exc $SHELL ; :"          # 作業リポジトリのトップに移動
   cd = "!ghq-cd ; :"
-  new = "!f() { ghq create $1; cd ~/ghq/github.com/$(git config ghq.user)/"$1"; }; f"
 
-  # for githug
-  create-repo = !gh repo create haskell-json --push --public --source "$(git root-path)"
+  repo-for-this = "!f() {gh repo create \"$1\" --push --public --source \"$(git root-path)\"; }; f" # use git-new command
 
 [ghq]
   user = Shusaku-Sahashi
