@@ -28,3 +28,6 @@ Temporary Items
 
 ##For jetbrains ####################################
 .idea
+
+## MCP #############################################
+.claude/settings.local.json
