@@ -5,12 +5,13 @@ require('status')
 return {
   font_size = 15.5,
   font = wezterm.font_with_fallback {
-    'HackGen35 Console NF'
+    'UDEV Gothic 35NFLG',
+    'JetBrains Mono Thin',
   },
-  color_scheme = "Catppuccin Mocha",
+  color_scheme = "kanagawa (Gogh)",
 
-  window_background_opacity = 0.85,
-  macos_window_background_blur = 7,
+  window_background_opacity = 100,
+  macos_window_background_blur = 0,
 
   use_ime = true,
   automatically_reload_config = true,
