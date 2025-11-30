@@ -10,8 +10,8 @@ return {
   },
   color_scheme = "kanagawa (Gogh)",
 
-  window_background_opacity = 100,
-  macos_window_background_blur = 0,
+  window_background_opacity = 1,      -- change here 0.85
+  macos_window_background_blur = nil, -- change here 10, 4, 2
 
   use_ime = true,
   automatically_reload_config = true,

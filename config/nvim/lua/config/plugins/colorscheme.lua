@@ -38,6 +38,7 @@ return {
     }
   end,
   config = function(_, opts)
-    local k = require("kanagawa").load("dragon")
+    require("kanagawa").setup(opts)
+    vim.cmd("colorscheme kanagawa-dragon")
   end,
 }
