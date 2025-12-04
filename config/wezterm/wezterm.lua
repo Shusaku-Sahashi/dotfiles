@@ -3,7 +3,8 @@ require('format')
 require('status')
 
 return {
-  font_size = 15.5,
+  font_size = 14.0,
+  line_height = 1.5,
   font = wezterm.font_with_fallback {
     'UDEV Gothic 35NFLG',
     'JetBrains Mono Thin',
