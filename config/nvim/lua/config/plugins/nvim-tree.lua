@@ -26,6 +26,7 @@ return {
       view = {
         width = 55,
         relativenumber = true,
+        signcolumn = "no"
       },
       update_focused_file = {
         enable = true,      -- ファイルを開いたら自動でツリーが追従
@@ -38,12 +39,13 @@ return {
       respect_buf_cwd = true,    -- バッファのcwdを尊重
       -- change folder arrow icons
       renderer = {
+        highlight_git = true,
+        highlight_opened_files = 'name',
         indent_markers = {
           enable = true,
         },
         icons = {
-          glyphs = {
-          },
+          show = { git = true }
         },
       },
       -- disable window_picker for
