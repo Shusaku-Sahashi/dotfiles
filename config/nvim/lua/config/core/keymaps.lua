@@ -68,6 +68,8 @@ keymap.set("n", "<leader>Y", "\"+Y")
 keymap.set("t", "<ESC>", '<c-\\><c-n><Plug>(esc)')
 keymap.set("n", "<Plug>(esc)<ESC>", "i<ESC>")
 
+keymap.set("n", "*", "*zz")
+
 -- select command with Down/Up
 vim.keymap.set("c", "<Down>", function()
   return vim.fn.pumvisible() == 1 and "<C-n>" or "<Down>"
