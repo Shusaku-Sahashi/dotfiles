@@ -65,8 +65,7 @@ keymap.set("v", "<leader>y", "\"+y")
 keymap.set("n", "<leader>Y", "\"+Y")
 
 -- leave terminal mode with ESC
-keymap.set("t", "<ESC>", '<c-\\><c-n><Plug>(esc)')
-keymap.set("n", "<Plug>(esc)<ESC>", "i<ESC>")
+keymap.set("t", "<C-q>", '<C-\\><C-n>')
 
 keymap.set("n", "*", "*zz")
 
