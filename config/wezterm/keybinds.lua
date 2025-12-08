@@ -101,7 +101,6 @@ return {
     { key = '[',          mods = 'LEADER',     action = act.ActivateCopyMode },
     { key = 'z',          mods = 'LEADER',     action = act.TogglePaneZoomState },
 
-
     { key = 'phys:Space', mods = 'SHIFT|CTRL', action = act.QuickSelect },
     { key = 'PageUp',     mods = 'SHIFT',      action = act.ScrollByPage(-1) },
     { key = 'PageUp',     mods = 'CTRL',       action = act.ActivateTabRelative(-1) },
@@ -111,6 +110,35 @@ return {
     { key = 'PageDown',   mods = 'SHIFT|CTRL', action = act.MoveTabRelative(1) },
     { key = 'Copy',       mods = 'NONE',       action = act.CopyTo 'Clipboard' },
     { key = 'Paste',      mods = 'NONE',       action = act.PasteFrom 'Clipboard' },
+
+    -- refresh the viewpoint (https://github.com/wezterm/wezterm/discussions/4446)
+    {
+      key = "l",
+      mods = "CTRL",
+      action = wezterm.action_callback(function(window, pane)
+        -- avoid running in tui programs like nvim that don't have scrollback
+        if pane:is_alt_screen_active() then
+          pane:send_text('\x0c')
+          return
+        end
+
+        -- scroll to bottom in case you aren't already
+        window:perform_action(wezterm.action.ScrollToBottom, pane)
+
+        -- get the current height of the viewport
+        local height = pane:get_dimensions().viewport_rows
+
+        -- build a string of new lines equal to the viewport height
+        local blank_viewport = string.rep("\r\n", height)
+
+        -- inject those new lines to push the viewport contents into the scrollback
+        pane:inject_output(blank_viewport)
+
+        -- send an escape sequence to clear the viewport (CTRL-L)
+        pane:send_text('\x0c')
+      end)
+    },
+
     -- move between split panes
     nvsplit.split_nav('move', 'h'),
     nvsplit.split_nav('move', 'j'),
