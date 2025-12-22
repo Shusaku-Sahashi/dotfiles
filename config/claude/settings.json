@@ -2,6 +2,12 @@
   "permissions": {
     "allow": [
       "WebSearch",
+      "UPDATE",
+      "READ(./src/**)",
+      "EDIT(./src/**)",
+      "READ(~/sources/**)",
+      "SEARCH(~/sources/**)",
+      "EDIT(//temp/**)",
       "Bash(git:*)",
       "Bash(npm:*)",
       "Bash(ls:*)",
@@ -9,8 +15,14 @@
       "Bash(mkdir:*)",
       "Bash(mv:*)",
       "Bash(grep:*)",
+      "Bash(for:*)",
+      "Bash(jq:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)"
+      "Bash(gh pr diff:*)",
+      "Bash(cat:*)",
+      "Bash(xargs:*)",
+      "Bash(./gradlew:*)",
+      "Bash(pnpm:*)"
     ],
     "deny": [
       "WebFetch",
