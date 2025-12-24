@@ -40,6 +40,7 @@ return {
         "yamlls", -- yaml
         "clangd", -- clang
         "bashls", -- bash lsp
+        "jsonls"  -- json lsp
       },
     })
 
