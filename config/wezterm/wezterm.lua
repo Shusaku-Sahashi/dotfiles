@@ -25,6 +25,7 @@ return {
   -- Show tab
   show_tabs_in_tab_bar = true,
   hide_tab_bar_if_only_one_tab = true,
+  -- hide_tab_bar_if_only_one_tab = true,
 
   -- -- Tab transparancy
   -- window_frame = {
