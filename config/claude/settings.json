@@ -1,12 +1,12 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "WebSearch",
       "UPDATE",
       "READ(./src/**)",
+      "SEARCH(./src/**)",
       "EDIT(./src/**)",
-      "READ(~/sources/**)",
-      "SEARCH(~/sources/**)",
       "EDIT(//temp/**)",
       "Bash(git:*)",
       "Bash(npm:*)",
@@ -19,10 +19,13 @@
       "Bash(jq:*)",
       "Bash(gh pr view:*)",
       "Bash(gh pr diff:*)",
-      "Bash(cat:*)",
       "Bash(xargs:*)",
       "Bash(./gradlew:*)",
-      "Bash(pnpm:*)"
+      "Bash(npx:*)",
+      "Bash(python3:*)",
+      "Bash(tee:*)",
+      "Bash(pnpm:*)",
+      "Bash(make:*)"
     ],
     "deny": [
       "WebFetch",
@@ -30,13 +33,39 @@
       "Bash(wget:*)",
       "Bash(curl:*)",
       "Bash(rm:*)",
-      "Bash(rm -rf:*)"
+      "Bash(rm -rf:*)",
+      "Read(.npmrc)",
+      "Read(.env)"
     ],
     "ask": [
       "Bash(git push:*)",
       "Bash(git commit:*)",
       "Bash(git reset:*)",
       "Bash(git rebase:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"タスクが完了しました\" with title \"Claude Code\" subtitle \"処理終了\" sound name \"Hero\"'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"指示待ちです\" with title \"Claude Code\" subtitle \"指示待ち\" sound name \"Hero\"'"
+          }
+        ]
+      }
     ]
   }
 }
