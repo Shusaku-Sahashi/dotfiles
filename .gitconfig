@@ -24,7 +24,7 @@
 [alias]
   aliases = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/'
   plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=iso
-  glog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=format:'%c' --all --graph
+  glog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=format:'%c' --graph
   showpr = "!f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
   openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
   st = status
@@ -32,7 +32,7 @@
   diff = diff --word-diff
   pull-mybranch = !git symbolic-ref --short HEAD | xargs git pull origin
   clean-branch = !git checkout main | git branch --merged | grep -E 'develop|feature' | xargs git branch -d | git checkout -
-  choo = "!f() { git checkout origin/$1; }; f"
+  choo = "!f() { git ft; git checkout origin/$1; git st;}; f"
   stash = stash -u
   init-commit = !git commit --allow-empty -m 'init commit'
   root-path = !git rev-parse --show-toplevel
