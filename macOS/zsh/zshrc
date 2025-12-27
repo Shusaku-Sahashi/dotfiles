@@ -45,6 +45,7 @@ if [[ ! $(command -v starship) ]]; then
     brew install starship
 fi
 eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # #################################
 # zsh setting

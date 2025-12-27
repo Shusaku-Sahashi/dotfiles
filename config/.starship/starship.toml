@@ -11,3 +11,27 @@ success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
+
+[directory]
+truncation_length = 6
+truncation_symbol = ' ' # nf-fa-folder_open
+truncate_to_repo = false
+read_only = ' 󰌾 ' # nf-md-lock
+
+# worktree
+[custom.git_worktree]
+command = '''
+git worktree list --porcelain \
+| awk '
+  /^worktree / { wt=$2 }
+  /^branch / {
+    sub("refs/heads/", "", $2)
+    if (wt == "'"$PWD"'") {
+      print $2
+    }
+  }
+'
+'''
+when = 'git rev-parse --is-inside-work-tree >/dev/null 2>&1'
+format = '🌳 [$output]($style) '
+style = 'bold cyan'
