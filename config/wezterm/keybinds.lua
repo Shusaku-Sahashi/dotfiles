@@ -111,6 +111,9 @@ return {
     { key = 'Copy',       mods = 'NONE',       action = act.CopyTo 'Clipboard' },
     { key = 'Paste',      mods = 'NONE',       action = act.PasteFrom 'Clipboard' },
 
+    -- Claude Code Sending Key
+    { key = "Enter",      mods = "SHIFT",      action = wezterm.action { SendString = "\x1b\r" } },
+
     -- refresh the viewpoint (https://github.com/wezterm/wezterm/discussions/4446)
     {
       key = "l",

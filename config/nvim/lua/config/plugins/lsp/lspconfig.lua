@@ -112,6 +112,26 @@ return {
           on_attach = on_attach,
         })
       end,
+      ["jsonls"] = function()
+        lspconfig["jsonls"].setup({
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = {
+            json = {
+              schemaStore = {
+                enable = true,
+                url = "https://www.schemastore.org/api/json/catalog.json",
+              },
+              validate = true,
+              format = {
+                enable = true,
+              },
+              completion = true,
+              hover = true,
+            },
+          },
+        })
+      end,
       ["lua_ls"] = function()
         -- configure lua server (with special settings)
         -- https://luals.github.io/wiki/settings/
