@@ -5,58 +5,51 @@ set -x
 
 # set up homobrew
 if [ ! -x "$(command -v brew)" ]; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # create symbolic link
-DOT_FILES=( .gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc )
-for file in ${DOT_FILES[@]}
-do
-    ln -s $HOME/dotfiles/$file $HOME/$file 2>/dev/null || echo "Pass creating link of $file. It already exists"
+DOT_FILES=(.gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc)
+for file in "${DOT_FILES[@]}"; do
+  ln -s "$HOME/dotfiles/$file" "$HOME/$file 2>/dev/null" || echo "Pass creating link of $file. It already exists"
 done
 
 ## zshのセットアップを記述する。
 ## https://dev.classmethod.jp/articles/zsh-prezto/
-if [ ! -d $HOME/.zprezto ]; then
-    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+if [ ! -d "$HOME/.zprezto" ]; then
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 fi
 
-DOT_FILES=( zlogin zlogout zpreztorc zprofile zshenv zshrc )
-if [ ! -d $HOME/zsh_bk ]; then
-    mkdir -p $HOME/zsh_bk
-    for file in ${DOT_FILES[@]}
-    do
-        mv $HOME/.$file $HOME/.zsh_bk/$file 2>/dev/null || echo "Pass back-up $file, It doesn't exist."
-    done
+DOT_FILES=(zlogin zlogout zpreztorc zprofile zshenv zshrc)
+if [ ! -d "$HOME/zsh_bk" ]; then
+  mkdir -p "$HOME/zsh_bk"
+  for file in "${DOT_FILES[@]}"; do
+    mv "$HOME/.$file" "$HOME/.zsh_bk/$file 2>/dev/null" || echo "Pass back-up $file, It doesn't exist."
+  done
 fi
 
-for file in ${DOT_FILES[@]}
-do
-    ln -s $HOME/dotfiles/macOS/zsh/$file $HOME/.$file
+for file in "${DOT_FILES[@]}"; do
+  ln -s "$HOME/dotfiles/macOS/zsh/$file" "$HOME/.$file"
 done
 
 ## install tools
 ##  https://github.com/Homebrew/homebrew-bundle
 brew bundle --file "$(git rev-parse --show-toplevel)/Brewfile"
 
-
-if [ ! -d $HOME/.config ]; then
-  mkdir $HOME/.config
+if [ ! -d "$HOME/.config" ]; then
+  mkdir "$HOME/.config"
 fi
 
-## create config symbolic link
-declare DOT_CONFIG_DIR_MAP=(
-  [hammerspoon]=""
-  [wezterm]=".config/"
-  [nvim]=".config/"
-)
-for dir in ${!DOT_CONFIG_DIR_MAP[@]}
-do
-    ln -s $HOME/dotfiles/config/$dir $HOME/${DOT_CONFIG_DIR_MAP[$dir]}.$dir 2>/dev/null || echo "Pass creating link of $dir. It already exists"
+for dir in $(basename "$(find ~/dotfiles/config -type d -name '.*')" | sed 's/\.//'); do
+  ln -s "$HOME/dotfiles/config/$dir" "$HOME/.config/.$dir" 2>/dev/null || echo "Pass creating link of $dir. It already exists"
 done
+
+# other dotfles
+ln -s ~/dotfiles/config/hammerspoon ~/.config/hammerspoon
+ln -s ~/dotfiles/config/claude/settings.json ~/.claude/settings.json
 
 ## key repeating setting
 ## https://apple.stackexchange.com/questions/10467/how-to-increase-keyboard-key-repeat-rate-on-os-x
-defaults write -g InitialKeyRepeat -int 12 # normal minimum is 15 (225 ms)
-defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+defaults write -g InitialKeyRepeat -int 12             # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 1                     # normal minimum is 2 (30 ms)
 defaults write -g ApplePressAndHoldEnabled -bool false # enalbe keyrepeating
