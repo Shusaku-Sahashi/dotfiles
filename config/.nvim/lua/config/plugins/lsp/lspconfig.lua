@@ -88,6 +88,7 @@ return {
     vim.diagnostic.config({ virtual_text = false })
 
     local on_attach = function(client, bufnr)
+      -- enable document format
       if client.server_capabilities.documentFormattingProvider then
         vim.api.nvim_create_autocmd("BufWritePre", {
           group = vim.api.nvim_create_augroup("LspFormat." .. bufnr, {}),
@@ -96,6 +97,11 @@ return {
             vim.lsp.buf.format({ bufnr = bufnr })
           end,
         })
+      end
+
+      --enable inlay hint
+      if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
       end
     end
 
@@ -195,6 +201,13 @@ return {
           }
         })
       end
+    })
+
+    -- ghcup でインストールした HLS の設定 (mason 管理外)
+    lspconfig.hls.setup({
+      cmd = { "haskell-language-server-wrapper", "--lsp" },
+      capabilities = capabilities,
+      on_attach = on_attach,
     })
   end,
 }

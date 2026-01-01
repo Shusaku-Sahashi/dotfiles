@@ -30,11 +30,11 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
+        -- "hls",    -- haskell (version pinned) -> lspもghcupでInstallすることにする。
         "ts_ls",  -- typescript
         "html",   -- html
         "cssls",  -- css
         "lua_ls", -- lua
-        "hls",    -- haskell
         "gopls",  -- golang
         "pylsp",  -- python
         "yamlls", -- yaml
