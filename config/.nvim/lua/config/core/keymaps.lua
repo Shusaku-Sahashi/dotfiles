@@ -41,17 +41,15 @@ keymap.set("n", "j", "gj", { desc = "Be able to move next line in wraped line" }
 keymap.set("n", "k", "gk", { desc = "Be able to move previous line in wraped line" })
 
 
--- window split
-keymap.set("n", "<leader>sv", ":sp<CR>", { desc = "Split window vertically" })
-keymap.set("n", "<leader>sh", ":vs<CR>", { desc = "Split window hirizonally" })
-keymap.set("n", "<leader>sx", ":close<CR>", { desc = "Close current split" })
-
 -- window tab
+keymap.set("n", "<leader>tv", ":sp<CR>", { desc = "Split window vertically" })
+keymap.set("n", "<leader>th", ":vs<CR>", { desc = "Split window hirizonally" })
+keymap.set("n", "<leader>tx", ":close<CR>", { desc = "Close current split" })
 keymap.set("n", "<leader>to", ":tabnew<CR>", { desc = "Open new tab" })
 keymap.set("n", "<leader>tf", ":tabnew %<CR>", { desc = "Open current buffer in new tab" })
 keymap.set("n", "<leader>tx", ":tabclose<CR>", { desc = "Close current tab" })
-keymap.set("n", "<leader>tn", ":tabn<CR>", { desc = "Go to next tab" })
-keymap.set("n", "<leader>tp", ":tabp<CR>", { desc = "Go to previous tab" })
+keymap.set("n", "<C-S-o>", ":tabn<CR>", { desc = "Go to next tab" })
+keymap.set("n", "<C-S-i>", ":tabp<CR>", { desc = "Go to previous tab" })
 
 -- x command don't user register
 keymap.set("n", "x", '"_x')

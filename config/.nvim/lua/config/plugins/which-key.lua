@@ -10,7 +10,7 @@ return {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   },
-  keys={
+  keys = {
     {
       "<leader>?",
       function()
@@ -22,7 +22,8 @@ return {
   config = function()
     local wk = require('which-key')
     wk.add({
-      { "<leader>f", group="file search" },
+      { "<leader>t", group = "Tab manipulation. Split Window etc..." },
+      { "<leader>f", group = "File search" },
     })
   end,
 }
