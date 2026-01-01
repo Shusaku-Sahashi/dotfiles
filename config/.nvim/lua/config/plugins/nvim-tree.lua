@@ -24,9 +24,16 @@ return {
 
     nvimtree.setup({
       view = {
-        width = 55,
-        relativenumber = true,
-        signcolumn = "no"
+        float = {
+          enable = true,
+          open_win_config = {
+            relative = "editor",
+            border = "rounded",
+            width = 40,
+            row = 1,
+            col = 1,
+          },
+        }
       },
       update_focused_file = {
         enable = true,      -- ファイルを開いたら自動でツリーが追従
@@ -56,6 +63,7 @@ return {
           window_picker = {
             enable = false,
           },
+          quit_on_open = true,
         },
       },
       filters = {
