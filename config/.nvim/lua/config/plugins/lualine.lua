@@ -6,14 +6,14 @@ return {
     local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
     local colors = {
-      blue = "#65D1FF",
-      green = "#3EFFDC",
-      violet = "#FF61EF",
-      yellow = "#FFDA7B",
-      red = "#FF4A4A",
-      fg = "#c3ccdc",
-      bg = "#112638",
-      inactive_bg = "#2c3043",
+      blue = "#66D1FF",
+      green = "#4EFFDC",
+      violet = "#FF62EF",
+      yellow = "#FFDA8B",
+      red = "#FF5A4A",
+      fg = "#c4ccdc",
+      bg = "#112639",
+      inactive_bg = "#3c3043",
     }
 
     local my_lualine_theme = {
@@ -55,11 +55,18 @@ return {
         theme = my_lualine_theme,
       },
       sections = {
+        lualine_c = {
+          {
+            "filename",
+            path = 3, -- Absolute path, with tilde as the home directory
+            shorting_target = 100,
+          },
+        },
         lualine_x = {
           {
             lazy_status.updates,
             cond = lazy_status.has_updates,
-            color = { fg = "#ff9e64" },
+            color = { fg = "#ff10e64" },
           },
           { "encoding" },
           { "fileformat" },
