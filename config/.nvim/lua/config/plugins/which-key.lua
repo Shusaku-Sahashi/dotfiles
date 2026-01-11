@@ -24,6 +24,7 @@ return {
     wk.add({
       { "<leader>t", group = "Tab manipulation. Split Window etc..." },
       { "<leader>f", group = "File search" },
+      { "<leader>h", group = "Manipulate git (gitsign)" }
     })
   end,
 }
