@@ -1,7 +1,7 @@
 -- if you want to confirm that treesitter is working, execute ":InspectTree"
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPre", "BufNewFile"},
+  event = { "BufReadPre", "BufNewFile" },
   -- this command is executed when treesitter plugin is installed/updated.
   build = ":TSUpdate",
   dependencies = {
@@ -15,6 +15,8 @@ return {
     treesitter.setup({ -- enable syntax highlighting
       highlight = {
         enable = true,
+        -- KotlinはTreesitterを無効化してVim syntaxを使用
+        disable = { "kotlin" },
       },
 
       -- enable indentation
