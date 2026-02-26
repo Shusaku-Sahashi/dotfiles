@@ -3,11 +3,12 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "UPDATE",
-      "READ(./src/**)",
-      "SEARCH(./src/**)",
-      "EDIT(./src/**)",
-      "EDIT(//temp/**)",
+      "Read(./src/**)",
+      "Grep(./src/**)",
+      "Glob(./src/**)",
+      "LSP(./src/**)",
+      "Edit(./src/**)",
+      "Edit(//temp/**)",
       "Bash(git:*)",
       "Bash(npm:*)",
       "Bash(ls:*)",
@@ -67,5 +68,11 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "language": "日本語"
 }
