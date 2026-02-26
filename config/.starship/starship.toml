@@ -1,6 +1,10 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# git status is so slow....
+[git_status]
+disabled = true
+
 # Inserts a blank line between shell prompts
 add_newline = true
 
