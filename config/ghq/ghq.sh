@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Create a new repository with ghq and optionally push to GitHub
-function new-repo() {
+alias new-repo="_create-new-repo"
+
+function _create-new-repo() {
   local repo_name=""
   local create_github=false
   local is_private=false
