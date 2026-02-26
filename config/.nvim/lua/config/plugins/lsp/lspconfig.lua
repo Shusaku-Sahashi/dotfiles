@@ -71,6 +71,12 @@ return {
 
         opts.desc = "Show Dianostic"
         keymap.set("n", "<leader>i", ":lua vim.diagnostic.open_float(nil, {focus=true, scope=cursor})<CR>")
+
+        keymap.set("n", "<leader>@", function()
+          require("telescope.builtin").lsp_workspace_symbols({
+            prompt_title = "Search Everywhere (Symbols)",
+          })
+        end, { desc = "Search Symbols" })
       end,
     })
 
