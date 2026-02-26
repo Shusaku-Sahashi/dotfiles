@@ -225,6 +225,10 @@ export PATH=$PATH:$GOBIN
 # ########################
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
+#########################
+# claude code native
+#########################
+export PATH="$HOME/.local/bin:$PATH"
 
 ##########################
 # jetbrains
