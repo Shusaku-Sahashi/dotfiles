@@ -5,6 +5,9 @@
 [git_status]
 disabled = true
 
+[kotlin]
+disabled = true
+
 # Inserts a blank line between shell prompts
 add_newline = true
 
@@ -22,20 +25,20 @@ truncation_symbol = ' ' # nf-fa-folder_open
 truncate_to_repo = false
 read_only = ' 󰌾 ' # nf-md-lock
 
-# worktree
-[custom.git_worktree]
-command = '''
-git worktree list --porcelain \
-| awk '
-  /^worktree / { wt=$2 }
-  /^branch / {
-    sub("refs/heads/", "", $2)
-    if (wt == "'"$PWD"'") {
-      print $2
-    }
-  }
-'
-'''
-when = 'git rev-parse --is-inside-work-tree >/dev/null 2>&1'
-format = '🌳 [$output]($style) '
-style = 'bold cyan'
+# worktree -> 重いので一旦コメントアウト
+# [custom.git_worktree]
+# command = '''
+# git worktree list --porcelain \
+# | awk '
+#   /^worktree / { wt=$2 }
+#   /^branch / {
+#     sub("refs/heads/", "", $2)
+#     if (wt == "'"$PWD"'") {
+#       print $2
+#     }
+#   }
+# '
+# '''
+# when = 'git rev-parse --is-inside-work-tree >/dev/null 2>&1'
+# format = '🌳 [$output]($style) '
+# style = 'bold cyan'
