@@ -95,8 +95,8 @@ return {
     { key = 'N',          mods = 'CTRL',       action = act.SpawnWindow },
     { key = 'P',          mods = 'CTRL',       action = act.ActivateCommandPalette },
 
-    { key = 'R',          mods = 'CTRL',       action = act.ReloadConfiguration },
     { key = 'U',          mods = 'CTRL',       action = act.CharSelect { copy_on_select = true, copy_to = 'ClipboardAndPrimarySelection' } },
+    { key = 'r',          mods = 'LEADER',     action = act.ReloadConfiguration },
     { key = 'w',          mods = 'LEADER',     action = act.CloseCurrentTab { confirm = true } },
     { key = '[',          mods = 'LEADER',     action = act.ActivateCopyMode },
     { key = 'z',          mods = 'LEADER',     action = act.TogglePaneZoomState },
