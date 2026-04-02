@@ -292,6 +292,14 @@ alias vim-ns="nvim --cmd 'let g:no_session=1'"
 
 export EDITOR=vim
 
+## 1password setting
+export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/sahashi/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/sahashi/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

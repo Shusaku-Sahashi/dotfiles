@@ -1,0 +1,43 @@
+{
+  "description": "WindowsApp: Command to Ctrl",
+  "manipulators": [
+    {
+      "type": "basic",
+      "from": {
+        "key_code": "left_command"
+      },
+      "to": [
+        {
+          "key_code": "left_control"
+        }
+      ],
+      "conditions": [
+        {
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.microsoft\\.rdc\\.macos$"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "basic",
+      "from": {
+        "key_code": "right_command"
+      },
+      "to": [
+        {
+          "key_code": "right_control"
+        }
+      ],
+      "conditions": [
+        {
+          "type": "frontmost_application_if",
+          "bundle_identifiers": [
+            "^com\\.microsoft\\.rdc\\.macos$"
+          ]
+        }
+      ]
+    }
+  ]
+}
