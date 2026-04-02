@@ -8,6 +8,12 @@ disabled = true
 [kotlin]
 disabled = true
 
+[nodejs]
+disabled = true
+
+[java]
+disabled = true
+
 # Inserts a blank line between shell prompts
 add_newline = true
 
