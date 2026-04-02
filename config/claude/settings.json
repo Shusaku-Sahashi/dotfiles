@@ -3,38 +3,39 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Read(./src/**)",
-      "Grep(./src/**)",
-      "Glob(./src/**)",
-      "LSP(./src/**)",
+      "Read",
+      "Grep",
+      "Glob",
+      "LSP",
       "Edit(./src/**)",
       "Edit(//temp/**)",
-      "Bash(git:*)",
-      "Bash(npm:*)",
-      "Bash(ls:*)",
-      "Bash(cat:*)",
-      "Bash(mkdir:*)",
-      "Bash(mv:*)",
-      "Bash(grep:*)",
-      "Bash(for:*)",
-      "Bash(jq:*)",
-      "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)",
-      "Bash(xargs:*)",
-      "Bash(./gradlew:*)",
-      "Bash(npx:*)",
-      "Bash(python3:*)",
-      "Bash(tee:*)",
-      "Bash(pnpm:*)",
-      "Bash(make:*)"
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(mkdir *)",
+      "Bash(mv *)",
+      "Bash(grep *)",
+      "Bash(for *)",
+      "Bash(jq *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr diff *)",
+      "Bash(xargs *)",
+      "Bash(./gradlew *)",
+      "Bash(npx *)",
+      "Bash(python3 *)",
+      "Bash(tee *)",
+      "Bash(pnpm *)",
+      "Bash(make *)",
+      "Bash(terraform fmt *)"
     ],
     "deny": [
       "WebFetch",
-      "Bash(sudo:*)",
-      "Bash(wget:*)",
-      "Bash(curl:*)",
-      "Bash(rm:*)",
-      "Bash(rm -rf:*)",
+      "Bash(sudo *)",
+      "Bash(wget *)",
+      "Bash(curl *)",
+      "Bash(rm *)",
+      "Bash(rm -rf *)",
       "Read(.npmrc)",
       "Read(.env)"
     ],
@@ -45,6 +46,7 @@
       "Bash(git rebase:*)"
     ]
   },
+  "model": "opus[1m]",
   "hooks": {
     "Stop": [
       {
@@ -72,10 +74,21 @@
   "enabledPlugins": {
     "context7@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "codex@openai-codex": true
+  },
   "statusLine": {
     "type": "command",
     "command": "npx ccstatusline@latest"
   },
-  "language": "日本語"
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
+  },
+  "language": "日本語",
+  "voiceEnabled": true
 }
