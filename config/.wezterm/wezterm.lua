@@ -9,6 +9,7 @@ return {
     'UDEV Gothic 35NFLG',
     'JetBrains Mono Thin',
   },
+  front_end = "Software",
   color_scheme = "kanagawa (Gogh)",
 
   window_background_opacity = 1,      -- change here 0.85
