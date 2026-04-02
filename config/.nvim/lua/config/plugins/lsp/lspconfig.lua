@@ -124,6 +124,16 @@ return {
           on_attach = on_attach,
         })
       end,
+      -- prettier と競合するため ts_ls のフォーマットを無効化
+      ["ts_ls"] = function()
+        lspconfig["ts_ls"].setup({
+          capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            on_attach(client, bufnr)
+          end,
+        })
+      end,
       ["jsonls"] = function()
         lspconfig["jsonls"].setup({
           capabilities = capabilities,
