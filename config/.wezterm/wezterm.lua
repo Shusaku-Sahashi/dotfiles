@@ -39,6 +39,14 @@ return {
     },
   },
 
+  -- SSH Domains
+  ssh_domains = {
+    {
+      name = "windows",
+      remote_address = "192.168.11.22",
+      username = "main-PC",
+    },
+  },
 
   -- Keybindings
   keys = require('keybinds').keys,
