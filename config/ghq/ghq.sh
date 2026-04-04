@@ -1,22 +1,42 @@
 #!/bin/bash
 
 # Create a new repository with ghq and optionally push to GitHub
-alias new-repo="_create-new-repo"
+alias new-repo="_new-repo-dispatch"
 
-function _create-new-repo() {
+function _new-repo-dispatch() {
+  local subcommand="$1"
+  shift
+
+  case "$subcommand" in
+  create) _new-repo-create "$@" ;;
+  move) _new-repo-move "$@" ;;
+  *)
+    echo "Usage: new-repo <subcommand> <repository-name> [options]"
+    echo ""
+    echo "Subcommands:"
+    echo "  create <name>           Create GitHub repo (private) + local"
+    echo "  create <name> --public  Create GitHub repo (public) + local"
+    echo "  create <name> --local   Local only (stored in ghq/_private/)"
+    echo "  move   <name>           Move from ghq/_private/ to ghq/github.com/<user>/"
+    echo "  move   <name> --public  Move + create GitHub repo (public)"
+    return 1
+    ;;
+  esac
+}
+
+function _new-repo-create() {
   local repo_name=""
-  local create_github=false
-  local is_private=false
+  local is_public=false
+  local is_local=false
 
-  # Parse arguments
   while [[ $# -gt 0 ]]; do
     case $1 in
-    -g | --github)
-      create_github=true
+    --public)
+      is_public=true
       shift
       ;;
-    --private)
-      is_private=true
+    --local)
+      is_local=true
       shift
       ;;
     *)
@@ -31,46 +51,155 @@ function _create-new-repo() {
     esac
   done
 
-  # Validate repository name
   if [[ -z "$repo_name" ]]; then
-    echo "Usage: new-repo <repository-name> [-g|--github] [--private]"
-    echo ""
-    echo "Options:"
-    echo "  -g, --github    Create GitHub repository"
-    echo "  --private   Create as private repository (default: public)"
-    echo ""
-    echo "Examples:"
-    echo "  new-repo my-project              # Local only"
-    echo "  new-repo my-project -g           # Local + GitHub (public)"
-    echo "  new-repo my-project -g --private # Local + GitHub (private)"
+    echo "Usage: new-repo create <repository-name> [--public] [--local]"
     return 1
   fi
 
-  # Create local repository with ghq
+  if [[ "$is_local" == true && "$is_public" == true ]]; then
+    echo "Error: --local and --public are mutually exclusive"
+    return 1
+  fi
+
+  local ghq_user
+  ghq_user="$(git config ghq.user)"
+  if [[ -z "$ghq_user" ]]; then
+    echo "Error: ghq.user is not set. Run: git config --global ghq.user <your-github-username>"
+    return 1
+  fi
+
+  local ghq_root
+  ghq_root="$(ghq root)"
+  if [[ -z "$ghq_root" ]]; then
+    echo "Error: Failed to get ghq root. Is ghq installed?"
+    return 1
+  fi
+
+  local private_path="$ghq_root/_private/$repo_name"
+  local github_path="$ghq_root/github.com/$ghq_user/$repo_name"
+
+  if [[ "$is_local" == true ]]; then
+    if [[ -d "$private_path" ]]; then
+      echo "Error: Repository already exists at $private_path"
+      return 1
+    fi
+
+    echo "Creating local repository: $repo_name"
+    mkdir -p "$private_path" && git init "$private_path"
+
+    if [[ $? -ne 0 ]]; then
+      echo "Error: Failed to create local repository"
+      rm -rf "$private_path"
+      return 1
+    fi
+
+    cd "$private_path" || return 1
+    echo "Repository created at: $private_path"
+    return 0
+  fi
+
+  # GitHub creation (private by default)
+  if [[ -d "$github_path" ]]; then
+    echo "Error: Repository already exists at $github_path"
+    return 1
+  fi
+
   echo "Creating local repository: $repo_name"
   ghq create "$repo_name"
 
-  if [[ ! $? ]]; then
+  if [[ $? -ne 0 ]]; then
     echo "Error: Failed to create local repository"
     return 1
   fi
 
-  local repo_path
-  repo_path="$HOME/ghq/github.com/$(git config ghq.user)/$repo_name"
+  local visibility_flag="--private"
+  if [[ "$is_public" == true ]]; then
+    visibility_flag="--public"
+  fi
 
-  # Create GitHub repository if requested
-  if [[ "$create_github" == true ]]; then
-    echo "Creating GitHub repository..."
+  cd "$github_path" || return 1
+  echo "Creating GitHub repository ($visibility_flag)..."
+  gh repo create "$repo_name" --source . --push $visibility_flag
 
-    local visibility_flag="--public"
-    if [[ "$is_private" == true ]]; then
-      visibility_flag="--private"
-    fi
+  if [[ $? -ne 0 ]]; then
+    echo "Error: Failed to create GitHub repository"
+    return 1
+  fi
 
-    cd "$repo_path" || exit
-    gh repo create "$repo_name" --source . --push $visibility_flag
+  echo "Repository created at: $github_path"
+}
 
-    if [[ ! $? ]]; then
+function _new-repo-move() {
+  local repo_name=""
+  local is_public=false
+
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+    --public)
+      is_public=true
+      shift
+      ;;
+    *)
+      if [[ -z "$repo_name" ]]; then
+        repo_name="$1"
+      else
+        echo "Error: Unknown argument '$1'"
+        return 1
+      fi
+      shift
+      ;;
+    esac
+  done
+
+  if [[ -z "$repo_name" ]]; then
+    echo "Usage: new-repo move <repository-name> [--public]"
+    return 1
+  fi
+
+  local ghq_user
+  ghq_user="$(git config ghq.user)"
+  if [[ -z "$ghq_user" ]]; then
+    echo "Error: ghq.user is not set. Run: git config --global ghq.user <your-github-username>"
+    return 1
+  fi
+
+  local ghq_root
+  ghq_root="$(ghq root)"
+  if [[ -z "$ghq_root" ]]; then
+    echo "Error: Failed to get ghq root. Is ghq installed?"
+    return 1
+  fi
+
+  local private_path="$ghq_root/_private/$repo_name"
+  local github_path="$ghq_root/github.com/$ghq_user/$repo_name"
+
+  if [[ ! -d "$private_path" ]]; then
+    echo "Error: Repository not found at $private_path"
+    return 1
+  fi
+
+  if [[ -d "$github_path" ]]; then
+    echo "Error: Repository already exists at $github_path"
+    return 1
+  fi
+
+  echo "Moving repository: $private_path -> $github_path"
+  mkdir -p "$ghq_root/github.com/$ghq_user"
+  mv "$private_path" "$github_path"
+
+  if [[ $? -ne 0 ]]; then
+    echo "Error: Failed to move repository"
+    return 1
+  fi
+
+  echo "Moved to: $github_path"
+
+  if [[ "$is_public" == true ]]; then
+    cd "$github_path" || return 1
+    echo "Creating GitHub repository (--public)..."
+    gh repo create "$repo_name" --source . --push --public
+
+    if [[ $? -ne 0 ]]; then
       echo "Error: Failed to create GitHub repository"
       return 1
     fi
@@ -78,6 +207,5 @@ function _create-new-repo() {
     echo "GitHub repository created successfully!"
   fi
 
-  cd "$repo_path" || exit
-  echo "Repository created at: $repo_path"
+  cd "$github_path" || return 1
 }
