@@ -56,6 +56,11 @@ function _new-repo-create() {
     return 1
   fi
 
+  if [[ "$is_local" == true && "$is_public" == true ]]; then
+    echo "Error: --local and --public are mutually exclusive"
+    return 1
+  fi
+
   local ghq_user
   ghq_user="$(git config ghq.user)"
   if [[ -z "$ghq_user" ]]; then
@@ -63,8 +68,15 @@ function _new-repo-create() {
     return 1
   fi
 
-  local private_path="$HOME/ghq/_private/$repo_name"
-  local github_path="$HOME/ghq/github.com/$ghq_user/$repo_name"
+  local ghq_root
+  ghq_root="$(ghq root)"
+  if [[ -z "$ghq_root" ]]; then
+    echo "Error: Failed to get ghq root. Is ghq installed?"
+    return 1
+  fi
+
+  local private_path="$ghq_root/_private/$repo_name"
+  local github_path="$ghq_root/github.com/$ghq_user/$repo_name"
 
   if [[ "$is_local" == true ]]; then
     if [[ -d "$private_path" ]]; then
@@ -73,11 +85,11 @@ function _new-repo-create() {
     fi
 
     echo "Creating local repository: $repo_name"
-    mkdir -p "$private_path"
-    git init "$private_path"
+    mkdir -p "$private_path" && git init "$private_path"
 
     if [[ $? -ne 0 ]]; then
       echo "Error: Failed to create local repository"
+      rm -rf "$private_path"
       return 1
     fi
 
@@ -151,8 +163,15 @@ function _new-repo-move() {
     return 1
   fi
 
-  local private_path="$HOME/ghq/_private/$repo_name"
-  local github_path="$HOME/ghq/github.com/$ghq_user/$repo_name"
+  local ghq_root
+  ghq_root="$(ghq root)"
+  if [[ -z "$ghq_root" ]]; then
+    echo "Error: Failed to get ghq root. Is ghq installed?"
+    return 1
+  fi
+
+  local private_path="$ghq_root/_private/$repo_name"
+  local github_path="$ghq_root/github.com/$ghq_user/$repo_name"
 
   if [[ ! -d "$private_path" ]]; then
     echo "Error: Repository not found at $private_path"
@@ -165,7 +184,7 @@ function _new-repo-move() {
   fi
 
   echo "Moving repository: $private_path -> $github_path"
-  mkdir -p "$HOME/ghq/github.com/$ghq_user"
+  mkdir -p "$ghq_root/github.com/$ghq_user"
   mv "$private_path" "$github_path"
 
   if [[ $? -ne 0 ]]; then
