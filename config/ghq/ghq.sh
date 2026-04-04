@@ -58,6 +58,11 @@ function _new-repo-create() {
 
   local ghq_user
   ghq_user="$(git config ghq.user)"
+  if [[ -z "$ghq_user" ]]; then
+    echo "Error: ghq.user is not set. Run: git config --global ghq.user <your-github-username>"
+    return 1
+  fi
+
   local private_path="$HOME/ghq/_private/$repo_name"
   local github_path="$HOME/ghq/github.com/$ghq_user/$repo_name"
 
@@ -68,7 +73,8 @@ function _new-repo-create() {
     fi
 
     echo "Creating local repository: $repo_name"
-    ghq create "_private/$repo_name"
+    mkdir -p "$private_path"
+    git init "$private_path"
 
     if [[ $? -ne 0 ]]; then
       echo "Error: Failed to create local repository"
@@ -140,6 +146,11 @@ function _new-repo-move() {
 
   local ghq_user
   ghq_user="$(git config ghq.user)"
+  if [[ -z "$ghq_user" ]]; then
+    echo "Error: ghq.user is not set. Run: git config --global ghq.user <your-github-username>"
+    return 1
+  fi
+
   local private_path="$HOME/ghq/_private/$repo_name"
   local github_path="$HOME/ghq/github.com/$ghq_user/$repo_name"
 
