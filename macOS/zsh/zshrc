@@ -6,6 +6,10 @@
 ############################
 # install brew
 # #########################
+if [[ "$(uname)" != "Darwin" ]]; then
+  export PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+fi
+
 if [[ ! $(command -v brew) ]]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
