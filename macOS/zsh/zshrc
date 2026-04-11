@@ -262,9 +262,10 @@ if [[ ! $(command -v mise) ]]; then
     brew install mise
 fi
 
-# macOSのみ実行
 if [[ "$(uname)" == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/mise activate zsh)"
+elif [[ "$(uname)" == "Linux" ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/mise activate zsh)"
 fi
 
 if [[ ! $(command -v htop) ]]; then
