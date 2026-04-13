@@ -209,6 +209,18 @@ return {
       end
     })
 
+    -- clangd は setup_handlers 経由だと capabilities/on_attach が渡らず補完が効かなかったため、
+    -- HLS と同様に setup_handlers の外で直接 setup() を呼ぶ方式に変更
+    lspconfig.clangd.setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      cmd = {
+        vim.fn.stdpath("data") .. "/mason/bin/clangd",
+        "--enable-config",    -- enable .clangd
+        "--background-index", -- indexing in background
+      },
+    })
+
     -- ghcup でインストールした HLS の設定 (mason 管理外)
     lspconfig.hls.setup({
       cmd = { "haskell-language-server-wrapper", "--lsp" },
