@@ -5,6 +5,7 @@
 ## white list
 !/config
 !/macOS
+!/windows
 !/wsl
 /.bin.local/** # ディレクトリは管理したいけど中身はいらない場合
 
