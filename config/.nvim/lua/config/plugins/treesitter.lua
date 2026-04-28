@@ -1,6 +1,7 @@
 -- if you want to confirm that treesitter is working, execute ":InspectTree"
 return {
   "nvim-treesitter/nvim-treesitter",
+  branch = "master", -- main branch requires Neovim 0.12+; master is locked for 0.11 compat
   event = { "BufReadPre", "BufNewFile" },
   -- this command is executed when treesitter plugin is installed/updated.
   build = ":TSUpdate",
