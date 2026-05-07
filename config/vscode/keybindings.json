@@ -1,0 +1,47 @@
+// VS Code keybindings for Kinesis + Hammerspoon (Cmd→Ctrl) + VSCode Neovim
+//
+// Background:
+//   Hammerspoon converts Cmd→Ctrl before events reach VS Code.
+//   So "Cmd+P" on keyboard becomes Ctrl+P inside VS Code.
+//   Keys in vscode-neovim.ctrlKeysForNormalMode are forwarded to Neovim;
+//   all others are handled by VS Code natively.
+//   On macOS, VS Code defaults use Cmd+X for most actions, so we explicitly
+//   bind the Ctrl+X equivalents here.
+[
+  // ── File ─────────────────────────────────────────────────────────────────
+  { "key": "ctrl+s",       "command": "workbench.action.files.save" },
+  { "key": "ctrl+shift+s", "command": "workbench.action.files.saveAs" },
+  { "key": "ctrl+n",       "command": "workbench.action.files.newUntitledFile" },
+
+  // ── Navigation ───────────────────────────────────────────────────────────
+  // ctrl+p and ctrl+shift+p pass through automatically (not in ctrlKeysForNormalMode)
+  { "key": "ctrl+p",       "command": "workbench.action.quickOpen" },
+  { "key": "ctrl+shift+p", "command": "workbench.action.showCommands" },
+  { "key": "ctrl+,",       "command": "workbench.action.openSettings" },
+  { "key": "ctrl+g",       "command": "workbench.action.gotoLine" },
+
+  // ── Editor tab switching ──────────────────────────────────────────────────
+  // Mirrors the nvim <C-S-o>/<C-S-i> tab bindings for VS Code editor tabs
+  { "key": "ctrl+shift+]", "command": "workbench.action.nextEditor" },
+  { "key": "ctrl+shift+[", "command": "workbench.action.previousEditor" },
+
+  // ── Search ───────────────────────────────────────────────────────────────
+  { "key": "ctrl+shift+f", "command": "workbench.action.findInFiles" },
+
+  // ── View / Sidebar ───────────────────────────────────────────────────────
+  { "key": "ctrl+j",       "command": "workbench.action.togglePanel" },
+  { "key": "ctrl+`",       "command": "workbench.action.terminal.toggleTerminal" },
+
+  // ── Edit (only active when Neovim is NOT handling the editor) ────────────
+  // ctrl+z / ctrl+shift+z: undo/redo outside of neovim (e.g., in input fields)
+  { "key": "ctrl+z",       "command": "undo",
+    "when": "textInputFocus && !editorTextFocus" },
+  { "key": "ctrl+shift+z", "command": "redo",
+    "when": "textInputFocus && !editorTextFocus" },
+
+  // ctrl+c / ctrl+v in non-editor contexts (search box, terminal, etc.)
+  { "key": "ctrl+c",       "command": "editor.action.clipboardCopyAction",
+    "when": "!editorTextFocus" },
+  { "key": "ctrl+v",       "command": "editor.action.clipboardPasteAction",
+    "when": "!editorTextFocus" }
+]

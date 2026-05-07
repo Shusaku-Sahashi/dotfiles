@@ -1,0 +1,17 @@
+{
+  // VSCode Neovim plugin settings
+  // Neovim executable path (adjust if using a different installation method)
+  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+
+  // Ctrl keys that are forwarded to Neovim in normal mode (defaults shown explicitly)
+  // Keys NOT listed here pass through to VS Code — so Ctrl+P, Ctrl+S etc. reach VS Code.
+  // Note: Hammerspoon converts Cmd→Ctrl before VS Code receives the event.
+  "vscode-neovim.ctrlKeysForNormalMode": [
+    "a", "b", "d", "e", "f", "h", "i", "o", "r", "t", "u", "v", "w", "x", "y"
+  ],
+
+  // Ctrl keys forwarded to Neovim in insert mode
+  "vscode-neovim.ctrlKeysForInsertMode": [
+    "a", "d", "h", "j", "o", "r", "t", "u", "w"
+  ]
+}
