@@ -67,6 +67,10 @@ keymap.set("t", "<C-q>", '<C-\\><C-n>')
 
 keymap.set("n", "*", "*zz")
 
+-- quickfix navigation
+keymap.set("n", "]q", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
+keymap.set("n", "[q", "<cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
+
 -- select command with Down/Up
 vim.keymap.set("c", "<Down>", function()
   return vim.fn.pumvisible() == 1 and "<C-n>" or "<Down>"
