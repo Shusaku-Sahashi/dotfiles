@@ -72,6 +72,16 @@ return {
         opts.desc = "Show Dianostic"
         keymap.set("n", "<leader>i", ":lua vim.diagnostic.open_float(nil, {focus=true, scope=cursor})<CR>")
 
+        opts.desc = "Send buffer diagnostics to quickfix"
+        keymap.set("n", "<leader>dq", function()
+          vim.diagnostic.setqflist({ bufnr = 0, open = true })
+        end, opts)
+
+        opts.desc = "Send workspace diagnostics to quickfix"
+        keymap.set("n", "<leader>dQ", function()
+          vim.diagnostic.setqflist({ open = true })
+        end, opts)
+
         keymap.set("n", "<leader>@", function()
           require("telescope.builtin").lsp_workspace_symbols({
             prompt_title = "Search Everywhere (Symbols)",
