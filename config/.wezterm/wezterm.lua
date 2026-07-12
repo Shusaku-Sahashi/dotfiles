@@ -53,6 +53,11 @@ return {
   key_tables = require('keybinds').key_tables,
   disable_default_key_bindings = true,
 
+
+  -- Send Option(Alt) key as meta key
+  send_composed_key_when_left_alt_is_pressed = false,
+  send_composed_key_when_right_alt_is_pressed = false,
+
   -- Leader key
   leader = { key = 'w', mods = 'CTRL', timeout_milliseconds = 2000 },
 }
