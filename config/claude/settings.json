@@ -73,6 +73,9 @@
     "context7@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true
+  "statusLine": {
+    "type": "command",
+    "command": "npx ccstatusline@latest"
   },
   "language": "日本語"
 }
