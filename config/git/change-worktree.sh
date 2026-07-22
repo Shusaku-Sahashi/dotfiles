@@ -19,7 +19,7 @@ case $1 in
     echo "command -c <new_branch_name> [<origin_branch>]"
     exit 1
   fi
-  git worktree add -b "$BRANCH" "${DIR_PATH}/${REPOSITORY_NAME}/${BRANCH}" ${ORIGIN:+"$ORIGIN"}
+  git worktree add -b "$BRANCH" "${DIR_PATH}/${REPOSITORY_NAME}/${BRANCH}" ${ORIGIN:+"$ORIGIN"} 1>&2
   echo "${DIR_PATH}/${REPOSITORY_NAME}/${BRANCH}"
   ;;
 "-r")
@@ -27,9 +27,12 @@ case $1 in
   SELECTED_LINE="$(git worktree list | fzf --prompt "remove: ")"
   SELECTED="$(echo "$SELECTED_LINE" | awk '{ print $1 }')"
   SELECTED_BRANCH="$(echo "$SELECTED_LINE" | awk '{ if ($NF ~ /^\[.*\]$/) { gsub(/[][]/, "", $NF); print $NF } }')"
-  git worktree remove "$SELECTED"
+
+  # tempolary move to MAIN_ROOT ensurely to remove the branch and workingdir
+  cd "$MAIN_ROOT"
+  git worktree remove "$SELECTED" 1>&2
   if [[ -n "$SELECTED_BRANCH" ]]; then
-    git branch -D "$SELECTED_BRANCH"
+    git branch -D "$SELECTED_BRANCH" 1>&2
   fi
   echo "$MAIN_ROOT"
   ;;
