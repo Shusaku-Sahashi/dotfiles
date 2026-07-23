@@ -8,7 +8,15 @@
         "color": "cyan"
       },
       {
-        "id": "2",
+        "id": "50f42ca9-5266-4c2f-9965-b65460854f93",
+        "type": "remote-control-status"
+      },
+      {
+        "id": "f44fa359-cf47-4ca1-9d97-73ecbd1f9426",
+        "type": "thinking-effort"
+      },
+      {
+        "id": "658815c6-4620-4fea-b7a2-c41be58e7102",
         "type": "separator"
       },
       {
@@ -50,6 +58,10 @@
       {
         "id": "11342244-265f-42b6-a75c-efdcbe448f91",
         "type": "separator"
+      },
+      {
+        "id": "a70f2ba3-afed-4681-89e5-b4343a9bd97e",
+        "type": "link"
       },
       {
         "id": "bb3efc4d-6eaa-49c2-ba8f-2f58692d51f9",
