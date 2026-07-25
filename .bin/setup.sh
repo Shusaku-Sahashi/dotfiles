@@ -8,6 +8,12 @@ if [ ! -x "$(command -v brew)" ]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# set up nix (CLI tools are managed declaratively via flake.nix + home-manager)
+if [ ! -x "$(command -v nix)" ]; then
+  curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confirm
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
 # create symbolic link
 DOT_FILES=(.gitconfig .vimrc .tmux.conf .global_gitignore .ideavimrc)
 for file in "${DOT_FILES[@]}"; do
@@ -35,6 +41,9 @@ done
 ## install tools
 ##  https://github.com/Homebrew/homebrew-bundle
 brew bundle --file "$(git rev-parse --show-toplevel)/Brewfile"
+
+## install CLI tools declared in flake.nix via home-manager
+nix run home-manager/master -- switch --flake "$(git rev-parse --show-toplevel)#mac" --impure
 
 if [ ! -d "$HOME/.config" ]; then
   mkdir "$HOME/.config"

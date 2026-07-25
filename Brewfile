@@ -1,23 +1,11 @@
 tap "homebrew/brew"
 tap "homebrew/cask-fonts"
-brew "bat"
-brew "exiftool"
-brew "eza"
-brew "fzf"
-brew "gawk"
-brew "gh"
+
+# CLI tools are managed via Nix/home-manager (see flake.nix).
+# ghcup is a GHC installer/updater tool and doesn't fit Nix's package model,
+# so it stays on Homebrew.
 brew "ghcup"
-brew "ghq"
-brew "htop"
-brew "jq"
-brew "neovim"
-brew "pdfcpu"
-brew "ripgrep"
-brew "starship"
-brew "stylua"
-brew "tmux"
-brew "tree"
-brew "xclip"
+
 cask "1password"
 cask "1password-cli"
 cask "adobe-acrobat-reader"

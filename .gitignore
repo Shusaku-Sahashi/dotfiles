@@ -22,3 +22,7 @@
 !.editorconfig
 !Brewfile
 !README.md
+!flake.nix
+!flake.lock
+!/nix/
+!/nix/**

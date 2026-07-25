@@ -45,9 +45,6 @@ if [[ -e ~/dotfiles/.zsh/rc/git.zsh ]] then;
 fi
 
 ### StarShip setting
-if [[ ! $(command -v starship) ]]; then
-    brew install starship
-fi
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
@@ -107,14 +104,6 @@ bindkey '^R' history-incremental-pattern-search-backward
 
 ########################################
 
-#######################################
-# install fzf
-# #####################################
-if [[ ! $(command -v fzf) ]]; then
-    brew install fzf
-fi
-
-
 ########################################
 # History 設定
 export HISTFILE=$HOME/.zsh_history
@@ -166,10 +155,6 @@ bindkey "^[[6~" forward-word
 #######################################
 # Setting for exa
 # #####################################
-if [[ ! $(command -v eza) ]]; then
-    brew install eza
-fi
-
 alias e='eza --icons=always'
 alias l=e
 alias ls=e
@@ -182,18 +167,11 @@ alias lt=et
 alias eta='eza -T -a -I "node_modules|.git|.cache" --color=always --icons=always | less -r'
 alias lta=eta
 
-if [[ ! $(command -v bat) ]]; then
-    brew install bat
-fi
 alias cat="bat --paging=never"
 
 ######################################
 # Setting for ghq
-# brew install ghq
 # ####################################
-if [[ ! $(command -v ghq) ]]; then
-    brew install ghq
-fi
 alias ghq-cd='cd $(ghq list --full-path | fzf)'
 
 #####################################
@@ -250,29 +228,14 @@ export PATH="$PATH:$HOME/.ghcup/bin"
 #####################
 ## awk -> gawk
 ## ##################
-if [[ ! $(command -v gawk) ]]; then
-    echo "install gawk"
-    brew install gawk
-fi
 alias awk=gawk
 
 
 ###################
 ## setting for mise
 ##################
-if [[ ! $(command -v mise) ]]; then
-    brew install mise
-fi
+eval "$(mise activate zsh)"
 
-if [[ "$(uname)" == "Darwin" ]]; then
-    eval "$(/opt/homebrew/bin/mise activate zsh)"
-elif [[ "$(uname)" == "Linux" ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/mise activate zsh)"
-fi
-
-if [[ ! $(command -v htop) ]]; then
-    brew install htop
-fi
 alias top=htop
 
 ###################
