@@ -70,6 +70,14 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                    /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
+# Zsh Line Editor (ZLE) のキーバインドを Vi 風にする(Escape でコマンドモードに入る).
+# ZLEモード中に v を押すと、現在のコマンドラインを $EDITOR で編集できるようにする。
+bindkey -v
+export EDITOR=vim
+export VISUAL=vim
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
 ########################################
 # オプション
@@ -157,7 +165,7 @@ function peco-cdr () {
     fi
 }
 zle -N peco-cdr
-bindkey '^X^R' peco-cdr
+bindkey '^X^X' peco-cdr
 # ####################################
 
 bindkey "^[[5~" backward-word
