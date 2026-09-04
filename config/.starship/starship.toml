@@ -58,6 +58,10 @@ truncation_symbol = ' ' # nf-fa-folder_open
 truncate_to_repo = false
 read_only = ' 󰌾 ' # nf-md-lock
 
+[nix_shell]
+disabled = false
+heuristic = true
+
 # worktree -> 重いので一旦コメントアウト
 # [custom.git_worktree]
 # command = '''
