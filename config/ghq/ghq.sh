@@ -119,7 +119,7 @@ function _new-repo-create() {
 
   cd "$github_path" || return 1
   echo "Creating GitHub repository ($visibility_flag)..."
-  gh repo create "$repo_name" --source . --push $visibility_flag
+  gh repo create "$repo_name" --source . --add-readme $visibility_flag
 
   if [[ $? -ne 0 ]]; then
     echo "Error: Failed to create GitHub repository"
