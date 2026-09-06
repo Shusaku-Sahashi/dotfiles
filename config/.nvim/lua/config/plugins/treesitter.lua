@@ -6,6 +6,18 @@ return {
   build = ":TSUpdate",
   dependencies = {
     "windwp/nvim-ts-autotag", -- close html tag automatically
+    -- pkl は nvim-treesitter 本体に未収録のため、pkl-neovim が独自の
+    -- tree-sitter パーサーを登録する。treesitter.setup() より前に読み込まれる必要がある。
+    -- (シンタックスハイライトに加えて、ftplugin/pkl.vim 経由で pkl-lsp の起動も担う)
+    {
+      "apple/pkl-neovim",
+      config = function()
+        vim.g.pkl_neovim = {
+          -- mason でインストールした pkl-lsp を使う
+          start_command = { vim.fn.stdpath("data") .. "/mason/bin/pkl-lsp" },
+        }
+      end,
+    },
   },
   config = function()
     -- import nvim-treesitter plugin
@@ -49,6 +61,7 @@ return {
         "kotlin",
         "sql",
         "haskell",
+        "pkl",
       },
     })
   end,

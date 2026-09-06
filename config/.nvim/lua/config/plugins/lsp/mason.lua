@@ -41,7 +41,7 @@ return {
         "clangd", -- clang
         "bashls", -- bash lsp
         "clangd", -- cpp lsp
-        "jsonls"  -- json lsp
+        "jsonls", -- json lsp
       },
     })
 
@@ -52,6 +52,7 @@ return {
         "eslint_d",
         "shellcheck", -- bash lint
         "shfmt",      -- bash fmt
+        "pkl-lsp",    -- apple pkl lsp (mason-lspconfig の1.x系マッピングに未登録のため、こちらでインストール)
       },
     })
   end,
