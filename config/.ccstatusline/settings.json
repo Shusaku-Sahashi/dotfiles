@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "lines": [
     [
       {
@@ -80,11 +80,18 @@
         "type": "session-cost"
       }
     ],
-    []
+    [
+      {
+        "id": "4be861e2-958c-4d2d-9fde-1952f94df6bf",
+        "type": "current-working-dir",
+        "color": "brightBlack"
+      }
+    ]
   ],
   "flexMode": "full-minus-40",
   "compactThreshold": 60,
   "colorLevel": 2,
+  "defaultPaddingSide": "both",
   "inheritSeparatorColors": false,
   "globalBold": false,
   "gitCacheTtlSeconds": 5,
