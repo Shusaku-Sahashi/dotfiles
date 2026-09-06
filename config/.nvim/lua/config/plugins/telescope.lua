@@ -37,6 +37,9 @@ return {
     keymap.set("n", "<leader>fs", function()
       builtin.grep_string({ search = vim.fn.input("Grep > ") });
     end)
+    keymap.set("n", "<leader>fc", function()
+      builtin.grep_string()
+    end, { desc = "Grep search word under cursor" })
     keymap.set("n", "<leader>ptd", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
   end,
 }
