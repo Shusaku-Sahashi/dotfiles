@@ -11,8 +11,6 @@ return {
         "mvnw",
         "settings.gradle",
       },
-      -- Optional: Specify a custom Java path to run the server
-      jre_path = os.getenv("JDK25"),
       -- Optional: Specify additional JVM arguments
       jvm_args = {
         "-Xmx4g",
