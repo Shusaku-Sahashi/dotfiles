@@ -78,6 +78,20 @@ return {
         end),
       },
     },
+    {
+      -- Rename current tab
+      mods = 'LEADER',
+      key = ',',
+      action = act.PromptInputLine {
+        description = "(wezterm) Rename tab:",
+        action = wezterm.action_callback(function(window, pane, line)
+          -- Esc の場合は nil、空文字の場合はタイトルをリセット
+          if line then
+            window:active_tab():set_title(line)
+          end
+        end),
+      },
+    },
 
     -- { key = 'L',          mods = 'CTRL',       action = act.ShowDebugOverlay }, -> CTRL + P >> ShowDebugOverlay
 

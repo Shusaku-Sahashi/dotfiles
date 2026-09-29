@@ -22,6 +22,8 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
 
   local bg = hover and HOVER_COLOR or BACK_COLOR
   local zoomed = tab.active_pane.is_zoomed and '🔎 ' or ' '
+  -- 明示的にリネームされていればそれを優先
+  local title = (tab.tab_title and #tab.tab_title > 0) and tab.tab_title or tab.active_pane.title
 
   return {
     { Foreground = { Color = SYMBOL_COLOR[index] } },
@@ -30,6 +32,6 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
 
     { Foreground = { Color = FONT_COLOR[index] } },
     { Background = { Color = bg } },
-    { Text = tab.active_pane.title },
+    { Text = title },
   }
 end)
