@@ -1,6 +1,36 @@
 local wezterm = require('wezterm')
 local nvsplit = require('nvim-split')
+local herdr = require('herdr')
 local act = wezterm.action
+
+-- 全workspaceのherdrタブを集める
+-- 表示名はタブバーと同じ優先順位: タブ名 > herdr の session 名 > ペインタイトル
+local function collect_herdr_tabs()
+  local result = {}
+  for _, mux_win in ipairs(wezterm.mux.all_windows()) do
+    local ws = mux_win:get_workspace()
+    for _, info in ipairs(mux_win:tabs_with_info()) do
+      for _, p in ipairs(info.tab:panes()) do
+        local session = herdr.session_name(p)
+        if session then
+          local title = info.tab:get_title()
+          if title == '' then
+            title = session
+          end
+          table.insert(result, {
+            tab = info.tab,
+            workspace = ws,
+            index = info.index,
+            title = title,
+            session = session,
+          })
+          break
+        end
+      end
+    end
+  end
+  return result
+end
 
 return {
   keys = {
@@ -91,6 +121,48 @@ return {
           end
         end),
       },
+    },
+    {
+      -- herdr を起動しているタブの一覧(workspace 横断)
+      mods = 'LEADER',
+      key = 'h',
+      action = wezterm.action_callback(function(win, pane)
+        local choices = {}
+        for _, item in ipairs(collect_herdr_tabs()) do
+          -- タブ名が session 名と異なる場合は session 名も併記する
+          local label = string.format('[%s] %d: %s', item.workspace, item.index + 1, item.title)
+          if item.title ~= item.session then
+            label = label .. string.format(' (session: %s)', item.session)
+          end
+          table.insert(choices, {
+            id = tostring(item.tab:tab_id()),
+            label = label,
+          })
+        end
+
+        if #choices == 0 then
+          win:toast_notification('WezTerm', 'herdr を起動しているタブはありません', nil, 3000)
+          return
+        end
+
+        win:perform_action(act.InputSelector {
+          title = 'Select herdr tab',
+          choices = choices,
+          fuzzy = true,
+          action = wezterm.action_callback(function(_, _, id, label)
+            if not id and not label then
+              wezterm.log_info 'herdr selection canceled'
+              return
+            end
+            local tab = wezterm.mux.get_tab(tonumber(id))
+            if not tab then return end
+
+            local ws = tab:window():get_workspace()
+            tab:activate()                                                -- 先にタブを選択
+            win:perform_action(act.SwitchToWorkspace { name = ws }, pane) -- workspace を移動
+          end),
+        }, pane)
+      end),
     },
 
     -- { key = 'L',          mods = 'CTRL',       action = act.ShowDebugOverlay }, -> CTRL + P >> ShowDebugOverlay
