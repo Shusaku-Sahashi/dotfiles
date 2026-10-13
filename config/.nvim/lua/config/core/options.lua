@@ -17,8 +17,9 @@ opt.wrap = false      -- doesn't wap line.
 -- - only small case -> ignore case
 -- - mixed cases     -> case sensitive
 -- - only big case   -> case sensitive
-opt.ignorecase = true -- ignore case when search
-opt.smartcase = true  -- if you include upper case in your sarch, assumes you want case-sensitive.
+opt.ignorecase = true  -- ignore case when search
+opt.smartcase = true   -- if you include upper case in your sarch, assumes you want case-sensitive.
+opt.incsearch = false  -- don't jump to match while typing; navigate from cursor position on Enter
 
 opt.cursorline = true -- hilight cursol line
 
